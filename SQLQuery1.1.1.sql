@@ -1,0 +1,1 @@
+﻿DELETE FROM UserProfile WHERE FirebaseUserId ='nTp4Zj1ozrdze9uKi7vJQ9K42r52'; 

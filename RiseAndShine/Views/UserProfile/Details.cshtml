@@ -1,0 +1,49 @@
+﻿@model RiseAndShine.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Account Details</h1>
+
+<div>
+
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserType.Name)
+        </dd>
+        <dt>
+        <br/>
+        </dt>
+        <dt>
+            <a type="button" class="btn btn-primary" role="button" asp-area="" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>   
+        </dt>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /*id = Model.Id*/ })
+    <a asp-action="Index">Back to List</a>
+</div>
