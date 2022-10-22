@@ -74,11 +74,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.Razor.Extensions/5.0.14": {
+      "Microsoft.AspNetCore.Mvc.Razor.Extensions/5.0.17": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Razor.Language": "5.0.14",
-          "Microsoft.CodeAnalysis.Razor": "5.0.14"
+          "Microsoft.AspNetCore.Razor.Language": "5.0.17",
+          "Microsoft.CodeAnalysis.Razor": "5.0.17"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
@@ -87,11 +87,11 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/5.0.14": {
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/5.0.17": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Razor.Extensions": "5.0.14",
-          "Microsoft.CodeAnalysis.Razor": "5.0.14",
+          "Microsoft.AspNetCore.Mvc.Razor.Extensions": "5.0.17",
+          "Microsoft.CodeAnalysis.Razor": "5.0.17",
           "Microsoft.Extensions.DependencyModel": "5.0.0"
         },
         "compile": {
@@ -127,7 +127,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Razor.Language/5.0.14": {
+      "Microsoft.AspNetCore.Razor.Language/5.0.17": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Razor.Language.dll": {}
@@ -350,10 +350,10 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Razor/5.0.14": {
+      "Microsoft.CodeAnalysis.Razor/5.0.17": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Razor.Language": "5.0.14",
+          "Microsoft.AspNetCore.Razor.Language": "5.0.17",
           "Microsoft.CodeAnalysis.CSharp": "3.8.0",
           "Microsoft.CodeAnalysis.Common": "3.8.0"
         },
@@ -2639,24 +2639,24 @@
         "microsoft.aspnetcore.html.abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.Razor.Extensions/5.0.14": {
-      "sha512": "Mi2hbklWdVdaGTKUiKw30SxWv+vUc1clX3+hdqV64XiOvamxZT2S/DiiXWck+6Kp/2Vg6mjFaA8JLKjxAWuqYg==",
+    "Microsoft.AspNetCore.Mvc.Razor.Extensions/5.0.17": {
+      "sha512": "wLdOlzlUg7r21g4CowBfacP9Zm8ML1IlEXK1GjOWiq0YM6Qqtx9c9RgPmGFCrLfvxY2R8gnRjuS2SgI4P0189g==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.razor.extensions/5.0.14",
+      "path": "microsoft.aspnetcore.mvc.razor.extensions/5.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll",
-        "microsoft.aspnetcore.mvc.razor.extensions.5.0.14.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.razor.extensions.5.0.17.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razor.extensions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/5.0.14": {
-      "sha512": "zH+PJKI2i/XYYMYqPYJeQ9FZaBH7YPaVd8+YXmYENj0jeyjNzWfV/tZLLOSL/FC5J0h36FHh8X/b+hl8cfeF9g==",
+    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/5.0.17": {
+      "sha512": "COGQj58i4z+DkdrIuiooarHdkEzkavKAvDi65606dH1mQlEm/kjMK8gN8rBIH5Xkkeyxjpr8wKep1t5jK5Z6xQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/5.0.14",
+      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/5.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2666,7 +2666,7 @@
         "buildTransitive/net5.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets",
         "lib/net5.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll",
         "lib/net5.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.xml",
-        "microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.14.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.17.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razor.runtimecompilation.nuspec"
       ]
     },
@@ -2683,17 +2683,17 @@
         "microsoft.aspnetcore.razor.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Razor.Language/5.0.14": {
-      "sha512": "EM/SxjFAutP7oWp6GrdchvXlGZSLXYkJq9V1/GYxqPwse3iTKty7AdBnGya7XPUb1h8HTMoz7EVmR7XMgtsZ+A==",
+    "Microsoft.AspNetCore.Razor.Language/5.0.17": {
+      "sha512": "Knw57iBgB0A3DEYu7vLGgKmgqOBOK1LMQcjwY8aVzj7+IwEJsDL0U4WkCs7YXX8eViaSf4QtJbSIpORJ9x6gRA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.razor.language/5.0.14",
+      "path": "microsoft.aspnetcore.razor.language/5.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard2.0/Microsoft.AspNetCore.Razor.Language.dll",
-        "microsoft.aspnetcore.razor.language.5.0.14.nupkg.sha512",
+        "microsoft.aspnetcore.razor.language.5.0.17.nupkg.sha512",
         "microsoft.aspnetcore.razor.language.nuspec"
       ]
     },
@@ -2971,17 +2971,17 @@
         "microsoft.codeanalysis.csharp.workspaces.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.Razor/5.0.14": {
-      "sha512": "aBxIsE3SpekYDL6F7LE4gbltWERIo4xMOxxbTtNyQ1f/mIJjkJeK8/4cLElhjcybYTUstGOexizEu+9QbLqUWQ==",
+    "Microsoft.CodeAnalysis.Razor/5.0.17": {
+      "sha512": "TA57romUfl3+yysUHK9+0DCzuPytQ/ljXd9yVad7/Wkw8O5jMwtWxvg4eYS0f/z20Fhw+G9ZIhcvmoNRXPyOcw==",
       "type": "package",
-      "path": "microsoft.codeanalysis.razor/5.0.14",
+      "path": "microsoft.codeanalysis.razor/5.0.17",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard2.0/Microsoft.CodeAnalysis.Razor.dll",
-        "microsoft.codeanalysis.razor.5.0.14.nupkg.sha512",
+        "microsoft.codeanalysis.razor.5.0.17.nupkg.sha512",
         "microsoft.codeanalysis.razor.nuspec"
       ]
     },
@@ -8008,7 +8008,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.14",
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.17",
       "Microsoft.Data.SqlClient >= 5.0.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2"
     ]
@@ -8054,7 +8054,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
-            "version": "[5.0.14, )"
+            "version": "[5.0.17, )"
           },
           "Microsoft.Data.SqlClient": {
             "target": "Package",

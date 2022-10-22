@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RiseAndShine_HomeCarWash.Models.UserProfile>
+﻿@model IEnumerable<RiseAndShine.Models.UserProfile>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirebaseUserId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
@@ -49,6 +52,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.FirebaseUserId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
@@ -59,8 +65,8 @@
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
+            </td>*@
+            @*<td>
                 @Html.DisplayFor(modelItem => item.ImageURL)
             </td>*@
             <td>
@@ -73,13 +79,13 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserTypeId)
+                @Html.DisplayFor(modelItem => item.UserType.Name)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.NeighborhoodId)
             </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

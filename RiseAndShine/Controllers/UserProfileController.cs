@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RiseAndShine_HomeCarWash.Models;
+using RiseAndShine.Models;
 using System.Collections.Generic;
 
-namespace RiseAndShine_HomeCarWash.Controllers
+namespace RiseAndShine.Controllers
 {
     public class UserProfileController : Controller
     {
-        // GET: UserProfileController
-        // GET: Walkers
+       
         public ActionResult Index()
         {
             List<UserProfile> userProiles = _userProfileRepo.GetAllUserProfiles();
@@ -17,9 +16,10 @@ namespace RiseAndShine_HomeCarWash.Controllers
         }
 
         // GET: UserProfileController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string firebaseUserId)
         {
-            return View();
+            UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
+            return View(userProfile);
         }
 
         // GET: UserProfileController/Create

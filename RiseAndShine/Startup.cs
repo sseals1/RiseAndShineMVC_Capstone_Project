@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RiseAndShine_HomeCarWash.Models;
+using RiseAndShine.Auth;
+using RiseAndShine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +27,16 @@ namespace RiseAndShine
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            services.AddHttpClient();
             services.AddControllersWithViews();
-            
+            services.AddTransient<IFirebaseAuthService, FirebaseAuthService>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.Cookie.SameSite = SameSiteMode.Strict);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,10 @@
-﻿using RiseAndShine_HomeCarWash.Models;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using RiseAndShine.Models;
+using System;
 
-namespace RiseAndShine_HomeCarWash.Models
+namespace RiseAndShine.Models
 {
     public class UserProfileRepository : IUserProfileRepository
     {
@@ -31,8 +32,16 @@ namespace RiseAndShine_HomeCarWash.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [FirstName], LastName, Email, Phone, Address, UserTypeId
-                        FROM UserProfile
+                         SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
+                        ut.Id AS UserTypeId, ut.Name AS UserTypeName, 
+                        c.Make, c.Model, c.Color, c.ImageUrl, c.ManufactureDate,
+                        sr.Note, d.DetailPackageName, d.PackagePrice
+                   FROM UserProfile up
+
+                        JOIN UserType ut ON ut.Id = up.UserTypeId
+                        LEFT JOIN Car c ON c.OwnerId = up.Id
+                        LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
+                        JOIN DetailType d ON d.Id = sr.DetailTypeId
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -42,15 +51,19 @@ namespace RiseAndShine_HomeCarWash.Models
                         {
                             UserProfile UserProfile = new UserProfile
                             {
+                                FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Phone = reader.GetString(reader.GetOrdinal("Phone")),
-                                Address = reader.GetString(reader.GetOrdinal("Address")), 
-                                //ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
                                 UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                                //NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                                UserType = new UserType()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                    Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
+                                }
                             };
 
                             UserProfiles.Add(UserProfile);
@@ -70,9 +83,18 @@ namespace RiseAndShine_HomeCarWash.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], ImageUrl, NeighborhoodId
-                        FROM UserProfile
-                        WHERE Id = @id
+                        SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
+                        ut.Id AS UserTypeId, ut.Name AS UserTypeName, 
+                        c.Make, c.Model, c.Color, c.ImageUrl, c.ManufactureDate,
+                        sr.Note, d.DetailPackageName, d.PackagePrice
+                   FROM UserProfile up
+
+                        JOIN UserType ut ON ut.Id = up.UserTypeId
+                        LEFT JOIN Car c ON c.OwnerId = up.Id
+                        LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
+                        JOIN DetailType d ON d.Id = sr.DetailTypeId
+
+                   WHERE FirebaseUserId = @firebaseUserId
                     ";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -83,10 +105,22 @@ namespace RiseAndShine_HomeCarWash.Models
                         {
                             UserProfile UserProfile = new UserProfile
                             {
+                                FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                UserType = new UserType()
+                                {
+                                     Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                     Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
+                                }
+
                                 //ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
-                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                                //NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
                             };
 
                             return UserProfile;
@@ -99,5 +133,86 @@ namespace RiseAndShine_HomeCarWash.Models
                 }
             }
         }
+        public UserProfile GetByFirebaseUserId(string FirebaseUserId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                   SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
+                        ut.Id AS UserTypeId, ut.Name AS UserTypeName 
+                   FROM UserProfile up
+                        JOIN UserType ut ON ut.Id = up.UserTypeId
+
+                   WHERE FirebaseUserId = @firebaseUserId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@firebaseUserId", FirebaseUserId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            UserProfile UserProfile = new UserProfile
+                            {
+                                FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                UserType = new UserType()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                    Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
+                                },
+                            };
+
+                            return UserProfile;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Add(UserProfile userProfile)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        INSERT INTO UserProfile
+                                            (FirebaseUserId, Email, UserTypeId, FirstName, LastName, Phone, Address) 
+                                        OUTPUT INSERTED.ID
+                                            VALUES(@firebaseUserId, @email, @userTypeId, @firstName, @lastName, @phone, @address)";
+
+                    //DbUtils.AddParameter(cmd, "@id", userProfile.Id);
+                    DbUtils.AddParameter(cmd, "@firebaseUserId", userProfile.FirebaseUserId);
+                    DbUtils.AddParameter(cmd, "@email", userProfile.Email);
+                    DbUtils.AddParameter(cmd, "@firstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@lastName", userProfile.LastName);
+                    DbUtils.AddParameter(cmd, "@phone", userProfile.Phone);
+                    DbUtils.AddParameter(cmd, "@address", userProfile.Address);
+                    DbUtils.AddParameter(cmd, "@userTypeId", userProfile.UserTypeId);
+
+
+
+                    userProfile.Id = (int)cmd.ExecuteScalar();
+                    
+                }
+            }
+        }
+
+
     }
 }
