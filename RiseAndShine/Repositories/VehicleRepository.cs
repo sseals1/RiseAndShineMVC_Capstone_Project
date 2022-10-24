@@ -10,6 +10,8 @@ namespace RiseAndShine.Models
     public class VehicleRepository : IVehicleRepository
     {
         private readonly IConfiguration _config;
+        private Vehicle vehicle;
+
 
         // The constructor accepts an IConfiguration object as a parameter. This class comes from the ASP.NET framework and is useful for retrieving things out of the appsettings.json file like connection strings.
         public VehicleRepository(IConfiguration config)
@@ -25,7 +27,7 @@ namespace RiseAndShine.Models
             }
         }
 
-        public List<Vehicle> GetAllVehicles()
+        public List<Vehicle> GetAllVehicles(int ownerId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -39,31 +41,29 @@ namespace RiseAndShine.Models
                    JOIN UserProfile up ON up.id = c.OwnerId
                     ";
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    List<Vehicle> vehicles = new List<Vehicle>();
+                    while (reader.Read())
                     {
-                        List<Vehicle> vehicles = new List<Vehicle>();
-                        while (reader.Read())
+                        Vehicle Vehicle = new Vehicle
                         {
-                            Vehicle Vehicle = new Vehicle
-                            {
-                                Id = DbUtils.GetInt(reader, "Id"),
-                                Make = DbUtils.GetString(reader, "Make"),
-                                Model = DbUtils.GetString(reader, "Model"),
-                                Color = DbUtils.GetString(reader, "Color"),
-                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Make = DbUtils.GetString(reader, "Make"),
+                            Model = DbUtils.GetString(reader, "Model"),
+                            Color = DbUtils.GetString(reader, "Color"),
+                            ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
 
-                            };
+                        };
 
-                            vehicles.Add(Vehicle);
-                        }
-
-                        return vehicles;
+                        vehicles.Add(Vehicle);
                     }
+
+                    return vehicles;
                 }
             }
         }
 
-        public Vehicle GetVehicleById(int id)
+        public List<Vehicle> GetVehicleByOwnerId(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -82,29 +82,29 @@ namespace RiseAndShine.Models
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                       List<Vehicle> vehicles = new List<Vehicle>();
+                        while (reader.Read())
                         {
-                            Vehicle Vehicle = new Vehicle
+                            Vehicle vehicle = new Vehicle 
                             {
-                                Id = DbUtils.GetInt(reader, "Id"),
+                                Id =  DbUtils.GetInt(reader, "Id"),
                                 Make = DbUtils.GetString(reader, "Make"),
                                 Model = DbUtils.GetString(reader, "Model"),
                                 Color = DbUtils.GetString(reader, "Color"),
-                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
-
+                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),                              
                             };
 
-                            return Vehicle;
-                        }
-                        else
-                        {
-                            return null;
-                        }
+                           vehicles.Add(vehicle);
+                        }     
+                        reader.Close();
+                        return vehicles;
                     }
                 }
             }
         }
-        
+
+
+
 
         public void Add(Vehicle vehicle)
         {
@@ -114,16 +114,16 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        INSERT INTO Vehicle
-                                            (Make, Model, Color, ManufactureDate) 
+                                        INSERT INTO Car
+                                            (Make, Model, Color, ManufactureDate, OwnerId) 
                                         OUTPUT INSERTED.ID
-                                            VALUES(@make, @model, @color, @manufactureDate)";
+                                            VALUES(@make, @model, @color, @manufactureDate, @ownerId)";
 
-                    
+                    DbUtils.AddParameter(cmd, "@ownerId", vehicle.OwnerId);
                     DbUtils.AddParameter(cmd, "@make", vehicle.Make);
-                    DbUtils.AddParameter(cmd, "@email", vehicle.Model);
-                    DbUtils.AddParameter(cmd, "@firstName", vehicle.Color);
-                    DbUtils.AddParameter(cmd, "@lastName", vehicle.ManufactureDate);
+                    DbUtils.AddParameter(cmd, "@model", vehicle.Model);
+                    DbUtils.AddParameter(cmd, "@color", vehicle.Color);
+                    DbUtils.AddParameter(cmd, "@manufactureDate", vehicle.ManufactureDate);
 
                     vehicle.Id = (int)cmd.ExecuteScalar();
 
@@ -131,6 +131,6 @@ namespace RiseAndShine.Models
             }
         }
 
-
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RiseAndShine.Models
 {
@@ -21,7 +22,9 @@ namespace RiseAndShine.Models
         public string Address { get; set; }
         [Display(Name = "User Type")]
         public UserType UserType { get; set; }
+        public List<UserType> UserTypes { get; set; }
         public int UserTypeId { get; set; }
         public int NeighborhoodId { get; set; }
+        
     }
 }

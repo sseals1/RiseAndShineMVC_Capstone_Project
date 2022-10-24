@@ -1,0 +1,42 @@
+﻿@model RiseAndShine.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Vehicle";
+}
+
+<h1>Add Vehicle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Vehicle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Make" class="control-label"></label>
+                <input asp-for="Make" class="form-control" />
+                <span asp-validation-for="Make" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufactureDate" class="control-label"></label>
+                <input asp-for="ManufactureDate" class="form-control" />
+                <span asp-validation-for="ManufactureDate" class="text-danger"></span>
+            </div>
+            <div><br /></div>
+        <dt>
+                <a type="button" class="btn btn-primary" role="button" asp-area="" asp-controller="Vehicle" asp-action="Create" >Save</a>
+            
+        </dt>
+        </form>
+</div>
+</div>
