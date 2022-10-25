@@ -58,9 +58,45 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UserProfile.Address)
         </dd>
-            
-        <a type="button" class="btn btn-primary" asp-controller="Vehicle"  asp-action="Create">Add Vehicle </a>
-               
+        <dt>
+
+            @foreach (Vehicle car in Model.Vehicle)
+            {
+                <div class="card m-4" style="width: 18rem;">
+                    @if (String.IsNullOrEmpty(car.ImageUrl))
+                    {
+                        <img src="/Images/vehicle.png"
+                     style="height : 50px; width : 50px"
+                     class="card-img-top"
+                     alt="RiseAndShine" />
+                    }
+                    else
+                    {
+                        <img src="@car.ImageUrl" class="card-img-top" alt="RiseAndShine_Car" />
+                    }
+                    <div class="card-body">
+                        <div>
+                            <label class="font-weight-bold">Make:</label>
+                            <span>@car.Make</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Model:</label>
+                            <span>@car.Model</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Color:</label>
+                            <span>@car.Color</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </dt>
+
+        <dd>
+            <a type="button" class="btn btn-primary" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>
+
+        </dd>
+
     </dl>
 </div>
 <td>

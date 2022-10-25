@@ -33,8 +33,10 @@
     ".NETCoreApp,Version=v5.0": {
       "RiseAndShine/1.0.0": {
         "dependencies": {
+          "AWSSDK": "2.3.55.2",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "5.0.17",
           "Microsoft.Data.SqlClient": "5.0.1",
+          "Microsoft.SharePointOnline.CSOM": "16.1.22921.12000",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
@@ -325,6 +327,17 @@
         },
         "compile": {
           "RiseAndShine.dll": {}
+        }
+      },
+      "AWSSDK/2.3.55.2": {
+        "runtime": {
+          "lib/net45/AWSSDK.dll": {
+            "assemblyVersion": "2.3.55.2",
+            "fileVersion": "2.3.55.2"
+          }
+        },
+        "compile": {
+          "lib/net45/AWSSDK.dll": {}
         }
       },
       "Azure.Core/1.24.0": {
@@ -897,6 +910,82 @@
       },
       "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "Microsoft.SharePointOnline.CSOM/16.1.22921.12000": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Office.Client.Policy.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.Office.Client.TranslationServices.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.Office.SharePoint.Tools.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.Online.SharePoint.Client.Tenant.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.ProjectServer.Client.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.DocumentManagement.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Publishing.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Runtime.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Search.Applications.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Search.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Taxonomy.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.UserProfiles.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.WorkflowServices.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          },
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.dll": {
+            "assemblyVersion": "16.1.0.0",
+            "fileVersion": "16.1.22921.12000"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Office.Client.Policy.dll": {},
+          "lib/netstandard2.0/Microsoft.Office.Client.TranslationServices.dll": {},
+          "lib/netstandard2.0/Microsoft.Office.SharePoint.Tools.dll": {},
+          "lib/netstandard2.0/Microsoft.Online.SharePoint.Client.Tenant.dll": {},
+          "lib/netstandard2.0/Microsoft.ProjectServer.Client.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.DocumentManagement.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Publishing.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Runtime.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Search.Applications.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Search.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.Taxonomy.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.UserProfiles.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.WorkflowServices.dll": {},
+          "lib/netstandard2.0/Microsoft.SharePoint.Client.dll": {}
+        }
+      },
       "Microsoft.SqlServer.Server/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
@@ -3641,6 +3730,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AWSSDK/2.3.55.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zy/6psTOx9c8LaZqL1tUtiGKMpd35b16TNRctz/N6Qc6hqFeOjyZ5WVhn89szJkkZtotcMFyfq58Y2RfyRxxUg==",
+      "path": "awssdk/2.3.55.2",
+      "hashPath": "awssdk.2.3.55.2.nupkg.sha512"
+    },
     "Azure.Core/1.24.0": {
       "type": "package",
       "serviceable": true,
@@ -3864,6 +3960,13 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.SharePointOnline.CSOM/16.1.22921.12000": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qfzz4GARIoOR0inn6SYrY515ZiLkqbgrQNRgo+Tp9VrCoaRxmJmDeatjIb+r7mP6nVhPMh6WqAue45l45HSpLQ==",
+      "path": "microsoft.sharepointonline.csom/16.1.22921.12000",
+      "hashPath": "microsoft.sharepointonline.csom.16.1.22921.12000.nupkg.sha512"
     },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",
