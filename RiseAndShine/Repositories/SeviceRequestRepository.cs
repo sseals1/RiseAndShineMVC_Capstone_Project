@@ -39,13 +39,13 @@ namespace RiseAndShine.Models
                          FROM ServiceRequest sr
                          JOIN UserProfile up ON sr.ServiceProviderId = up.Id
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id
-                                WHERE sr.CarId = @sr.carId
+                                WHERE sr.CarId = @carId
                                 ORDER BY up.LastName
                     ";
-
+                    DbUtils.AddParameter(cmd, "@carId", id);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        List<ServiceRequest> ServiceRequests = new List<ServiceRequest>();
+                        List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
                         while (reader.Read())
                         {
                             ServiceRequest serviceRequest = new ServiceRequest
@@ -53,7 +53,7 @@ namespace RiseAndShine.Models
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 CarId = DbUtils.GetInt(reader, "CarId"),
                                 DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
-                                ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "LastName"),
+                                ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProvider"),
                                 Note = DbUtils.GetString(reader, "Note"),
 
@@ -76,10 +76,10 @@ namespace RiseAndShine.Models
                                 }
                             };
 
-                            ServiceRequests.Add(serviceRequest);
+                            serviceRequests.Add(serviceRequest);
                         }
 
-                        return ServiceRequests;
+                        return serviceRequests;
                     }
                 }
             }
