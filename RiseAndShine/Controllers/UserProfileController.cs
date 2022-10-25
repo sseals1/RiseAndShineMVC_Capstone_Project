@@ -5,12 +5,13 @@ using RiseAndShine.Repositories;
 using RiseAndShine.Models.ViewModels;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace RiseAndShine.Controllers
 {
     public class UserProfileController : Controller
     {
-       
+        [Authorize]
         public ActionResult Index()
         {
             List<UserProfile> userProiles = _userProfileRepo.GetAllUserProfiles();
@@ -29,23 +30,25 @@ namespace RiseAndShine.Controllers
         //}
         [Authorize]
         [HttpGet]
-        public ActionResult Details(string FirebaseUserId)
+        public ActionResult Details()
         {
-            UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(FirebaseUserId);
-            List<Vehicle> vehicle = _vehicleRepository.GetVehicleByOwnerId(userProfile.Id);
-            //UserProfile userProfile = _userProfileRepo.GetUserProfileById(id);
+            var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
+            List<Vehicle> vehicle = _vehicleRepository.GetVehicleByOwnerId(ownerId);
+            List<ServiceRequest> serviceRequests = _serviceRequestRepo.GetServiceRequestByUserId(ownerId);
             //var userTypes = _userTypeRepository.GetAllUserTypes();
             //userProfile.UserTypes = userTypes;
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 UserProfile = userProfile,
-                Vehicle = vehicle,
-                
+                Vehicle = vehicle,  
+                ServiceRequest = serviceRequests
             };
 
             return View(vm);
-            //new { OwnerId = userProfile.Id }
+            
 
 
         }
@@ -115,12 +118,12 @@ namespace RiseAndShine.Controllers
 
         private readonly IUserProfileRepository _userProfileRepo;
         private readonly IVehicleRepository _vehicleRepository;
-        //private readonly IUserTypeRepository _userTypeRepository;
+        private readonly IServiceRequestRepository _serviceRequestRepo;
 
         // ASP.NET will give us an instance of our UserProfile  Repository. This is called "Dependency Injection"
-        public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository)
+        public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository, IServiceRequestRepository serviceRequestRepository)
         {
-            //_userTypeRepository = userTypeRepository;
+            _serviceRequestRepo = serviceRequestRepository;
             _userProfileRepo = userProfileRepository;
             _vehicleRepository = vehicleRepository; 
         }

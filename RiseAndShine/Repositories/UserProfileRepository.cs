@@ -33,15 +33,16 @@ namespace RiseAndShine.Models
                 {
                     cmd.CommandText = @"
                          SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
-                        ut.Id AS UserTypeId, ut.Name AS UserTypeName, 
+                        ut.Name AS UserTypeName, 
                         c.Make, c.Model, c.Color, c.ImageUrl, c.ManufactureDate,
-                        sr.Note, d.DetailPackageName, d.PackagePrice
+                        sr.Note,
+                        d.DetailPackageName, d.PackagePrice
                    FROM UserProfile up
 
                         JOIN UserType ut ON ut.Id = up.UserTypeId
                         LEFT JOIN Car c ON c.OwnerId = up.Id
                         LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
-                        JOIN DetailType d ON d.Id = sr.DetailTypeId
+                        LEFT JOIN DetailType d ON d.Id = sr.DetailTypeId
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -54,7 +55,7 @@ namespace RiseAndShine.Models
                                 FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Phone = reader.GetString(reader.GetOrdinal("Phone")),
                                 Address = reader.GetString(reader.GetOrdinal("Address")),

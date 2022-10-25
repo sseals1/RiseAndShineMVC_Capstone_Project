@@ -71,15 +71,15 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate
+                       SELECT c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, ImageUrl
                     
                         FROM Car c
                         
-                        WHERE Id = @id
+                        WHERE OwnerId = @ownerId
                     ";
 
-                    cmd.Parameters.AddWithValue("@id", id);
-
+                    cmd.Parameters.AddWithValue("@ownerId", id);
+                    
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                        List<Vehicle> vehicles = new List<Vehicle>();
@@ -87,11 +87,13 @@ namespace RiseAndShine.Models
                         {
                             Vehicle vehicle = new Vehicle 
                             {
-                                Id =  DbUtils.GetInt(reader, "Id"),
+                                OwnerId =  DbUtils.GetInt(reader, "OwnerId"),
                                 Make = DbUtils.GetString(reader, "Make"),
                                 Model = DbUtils.GetString(reader, "Model"),
                                 Color = DbUtils.GetString(reader, "Color"),
-                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),                              
+                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"), 
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"), 
+                                
                             };
 
                            vehicles.Add(vehicle);
