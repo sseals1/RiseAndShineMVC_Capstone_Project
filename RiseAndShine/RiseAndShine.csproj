@@ -6,15 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK" Version="2.3.55.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.22921.12000" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Views\Shared\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
