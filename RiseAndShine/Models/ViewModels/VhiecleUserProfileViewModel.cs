@@ -5,7 +5,7 @@ namespace RiseAndShine.Models.ViewModels
     public class VhiecleUserProfileViewModel
     {
         public UserProfile UserProfile { get; set; }
-        public List<Vehicle> Vehicle  { get; set; }
+        public List<Vehicle> Vehicles  { get; set; }
 
     }
 }

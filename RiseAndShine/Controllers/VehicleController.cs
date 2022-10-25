@@ -26,7 +26,7 @@ namespace RiseAndShine.Controllers
         public ActionResult Details(int id)
         {
 
-            List<Vehicle> vehicle = _vehicleRepo.GetVehicleByOwnerId(id);
+            List<Vehicle> vehicle = _vehicleRepo.GetVehicleByOwnerIdWithServiceRequests(id);
             return View(vehicle);
         }
 

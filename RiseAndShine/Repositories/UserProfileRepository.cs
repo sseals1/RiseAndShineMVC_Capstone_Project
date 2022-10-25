@@ -112,11 +112,8 @@ namespace RiseAndShine.Models
                                 {
                                     Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                     Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
-                                },
-
-
+                                },                               
                             };
-
                             return UserProfile;
                         }
                         else
@@ -147,7 +144,7 @@ namespace RiseAndShine.Models
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                       
+
                         if (reader.Read())
                         {
                             UserProfile UserProfile = new UserProfile
@@ -165,7 +162,7 @@ namespace RiseAndShine.Models
                                     Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                     Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
                                 },
-                           
+
 
                             };
 
@@ -205,7 +202,7 @@ namespace RiseAndShine.Models
 
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
-                    
+
                 }
             }
         }

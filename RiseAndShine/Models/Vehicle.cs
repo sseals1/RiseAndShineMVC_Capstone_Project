@@ -14,7 +14,9 @@ namespace RiseAndShine.Models
         [DataType(DataType.Date)]
         public DateTime ManufactureDate { get; set; }
         public int OwnerId { get; set; }
-        public string ImageUrl { get; set; }    
+        public string ImageUrl { get; set; }   
+        public ServiceRequest ServiceRequest { get; set; }
+        public List<ServiceRequest> ServiceRequests { get; set; }
 
     }
 }
