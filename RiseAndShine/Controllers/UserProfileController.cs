@@ -6,6 +6,9 @@ using RiseAndShine.Models.ViewModels;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Amazon.EC2.Model;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace RiseAndShine.Controllers
 {
@@ -35,20 +38,26 @@ namespace RiseAndShine.Controllers
             var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
-            List<Vehicle> vehicle = _vehicleRepository.GetVehicleByOwnerId(ownerId);
-            List<ServiceRequest> serviceRequests = _serviceRequestRepo.GetServiceRequestByUserId(ownerId);
+            List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
+            var vIds = vehicles.Select(v => v.Id).ToList();
+            List<ServiceRequest> serviceRequests = null;
+            foreach (var Id in vIds)
+            {
+                serviceRequests = _serviceRequestRepo.GetServiceRequestByUserId(Id);
+            }
+
             //var userTypes = _userTypeRepository.GetAllUserTypes();
             //userProfile.UserTypes = userTypes;
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 UserProfile = userProfile,
-                Vehicle = vehicle,  
-                ServiceRequest = serviceRequests
+                Vehicles = vehicles,
+                ServiceRequests = serviceRequests
             };
 
             return View(vm);
-            
+
 
 
         }
@@ -125,7 +134,7 @@ namespace RiseAndShine.Controllers
         {
             _serviceRequestRepo = serviceRequestRepository;
             _userProfileRepo = userProfileRepository;
-            _vehicleRepository = vehicleRepository; 
+            _vehicleRepository = vehicleRepository;
         }
     }
 }

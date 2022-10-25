@@ -25,6 +25,8 @@ namespace RiseAndShine.Models
         public List<UserType> UserTypes { get; set; }
         public int UserTypeId { get; set; }
         public int NeighborhoodId { get; set; }
+        public PackageType PackageType { get; set; }
+        public ServiceRequest ServiceRequest { get; set; }
         
     }
 }

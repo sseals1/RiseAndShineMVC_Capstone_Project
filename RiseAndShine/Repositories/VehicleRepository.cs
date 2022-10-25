@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using RiseAndShine.Models;
 using System;
 using RiseAndShine.Auth.Models;
+using System.Linq;
 
 namespace RiseAndShine.Models
 {
@@ -63,7 +64,7 @@ namespace RiseAndShine.Models
             }
         }
 
-        public List<Vehicle> GetVehicleByOwnerId(int id)
+        public List<Vehicle> GetVehicleByOwnerIdWithServiceRequests(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -71,39 +72,71 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, ImageUrl
-                    
+                      SELECT c.Id AS VehicleId, c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, ImageUrl,
+                        sr.Id AS ServiceRequestId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
+                        dt.DetailPackageName, dt.PackagePrice
+
                         FROM Car c
-                        
+                        LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
+                        LEFT JOIN DetailType dt ON sr.DetailTypeId = dt.Id
+
                         WHERE OwnerId = @ownerId
                     ";
 
                     cmd.Parameters.AddWithValue("@ownerId", id);
-                    
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                       List<Vehicle> vehicles = new List<Vehicle>();
+                        //var serviceRequests = new List<ServiceRequest>();
+                        
+                        List<Vehicle> vehicles = new List<Vehicle>();
                         while (reader.Read())
                         {
-                            Vehicle vehicle = new Vehicle 
+                            var vehicleId = DbUtils.GetInt(reader, "VehicleId");
+                            var existingVehicle = vehicles.FirstOrDefault(r => r.Id == vehicleId);
+                            if (existingVehicle == null)
                             {
-                                OwnerId =  DbUtils.GetInt(reader, "OwnerId"),
-                                Make = DbUtils.GetString(reader, "Make"),
-                                Model = DbUtils.GetString(reader, "Model"),
-                                Color = DbUtils.GetString(reader, "Color"),
-                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"), 
-                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"), 
-                                
-                            };
+                                existingVehicle = new Vehicle()
+                                {
 
-                           vehicles.Add(vehicle);
-                        }     
-                        reader.Close();
+                                    Id = DbUtils.GetInt(reader, "VehicleId"),
+                                    OwnerId = DbUtils.GetInt(reader, "OwnerId"),
+                                    Make = DbUtils.GetString(reader, "Make"),
+                                    Model = DbUtils.GetString(reader, "Model"),
+                                    Color = DbUtils.GetString(reader, "Color"),
+                                    ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
+                                    ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                                    //Neighborhood neighborhood = new Neighborhood()
+
+                                    ServiceRequests = new List<ServiceRequest>()
+                                };
+
+                                vehicles.Add(existingVehicle);
+                            }
+                            if (DbUtils.IsNotDbNull(reader, "ServiceRequestId"))
+                            {
+                                existingVehicle.ServiceRequests.Add(new ServiceRequest()
+                                {
+                                    //Id = DbUtils.GetInt(reader, "ServiceReqestId"),                                  
+                                    DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
+                                    ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
+                                    ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
+                                    Note = DbUtils.GetString(reader, "Note"),
+                                    Package = new PackageType()
+                                    {
+                                        Name = DbUtils.GetString(reader, "Name"),
+                                        Price = DbUtils.GetInt(reader, "Price"),
+                                    }
+                                });
+                            }
+                        }
+                        //reader.Close();
                         return vehicles;
                     }
                 }
             }
         }
+
 
 
 
