@@ -84,17 +84,11 @@ namespace RiseAndShine.Models
                 {
                     cmd.CommandText = @"
                         SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
-                        ut.Id AS UserTypeId, ut.Name AS UserTypeName, 
-                        c.Make, c.Model, c.Color, c.ImageUrl, c.ManufactureDate,
-                        sr.Note, d.DetailPackageName, d.PackagePrice
+                        ut.Id AS UserTypeId, ut.Name AS UserTypeName 
                    FROM UserProfile up
-
                         JOIN UserType ut ON ut.Id = up.UserTypeId
-                        LEFT JOIN Car c ON c.OwnerId = up.Id
-                        LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
-                        JOIN DetailType d ON d.Id = sr.DetailTypeId
 
-                   WHERE FirebaseUserId = @firebaseUserId
+                   WHERE up.Id = @id         
                     ";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -108,19 +102,18 @@ namespace RiseAndShine.Models
                                 FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Phone = reader.GetString(reader.GetOrdinal("Phone")),
                                 Address = reader.GetString(reader.GetOrdinal("Address")),
                                 UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 UserType = new UserType()
                                 {
-                                     Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                                     Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
-                                }
+                                    Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                    Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
+                                },
 
-                                //ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
-                                //NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+
                             };
 
                             return UserProfile;
@@ -153,6 +146,7 @@ namespace RiseAndShine.Models
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
+                       
                         if (reader.Read())
                         {
                             UserProfile UserProfile = new UserProfile
@@ -170,6 +164,8 @@ namespace RiseAndShine.Models
                                     Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                     Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
                                 },
+                           
+
                             };
 
                             return UserProfile;

@@ -6,6 +6,6 @@ namespace RiseAndShine.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }    
-        public List<UserType> UserTypes { get; set; }
+        public UserType UserTypes { get; set; }
     }
 }

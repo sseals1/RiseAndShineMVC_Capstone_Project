@@ -427,6 +427,8 @@ C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\RiseAndShine
 C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\ref\RiseAndShine.dll
 C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
-C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\UserProfile\Details.cshtml.g.cs
 C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\UserProfile\Index.cshtml.g.cs
+C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\bin\Debug\net5.0\bundleconfig.json
+C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\Vehicle\Index.cshtml.g.cs
 C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\Vehicle\Create.cshtml.g.cs
+C:\Users\sseal\workspace\RiseAndShine\RiseAndShine\obj\Debug\net5.0\Razor\Views\UserProfile\Details.cshtml.g.cs

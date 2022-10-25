@@ -8,7 +8,7 @@ namespace RiseAndShine.Models
         SqlConnection Connection { get; }
 
         void Add(Vehicle vehicle);
-        List<Vehicle> GetAllVehicles();
-        Vehicle GetVehicleById(int id);
+        List<Vehicle> GetVehicleByOwnerId(int ownerId);
+
     }
 }
