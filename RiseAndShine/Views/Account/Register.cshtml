@@ -11,14 +11,11 @@
     <div class="col-md-4">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*@Model List<UserType>
-            @Html.LabelFor(m=>m.UserType)
-            @Html.DropDownListFor(m => m.UserType, Model.UserType)
-            @foreach (var types in Model.UserType)*@
 
+            @*@Html.DropDownListFor(model => model.UserType,  "Select User Type...")*@
             <div class="form-group">
-                <label asp-for="UserType" class="control-label">User Type</label>
-                <select asp-for="UserType" style="color:dodgerblue" autofocus>                      
+                <select asp-for="UserType" style="color:dodgerblue" autofocus>
+                @*<option value="">Select User Type</option>*@
                 <option value="1">Owner</option>
                 <option value="2">Service Providor</option>
             </select>

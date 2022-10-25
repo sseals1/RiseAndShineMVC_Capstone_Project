@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RiseAndShine.Models;
-using RiseAndShine.Repositories;
-using RiseAndShine.Models.ViewModels;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RiseAndShine.Controllers
 {
@@ -18,36 +15,11 @@ namespace RiseAndShine.Controllers
             return View(userProiles);
         }
 
-        //GET: UserProfileController/Details/5
-        [HttpGet]
-        //public ActionResult Details(string firebaseUserId)
-        //{
-        //    UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
-        //    //var userTypes = _userTypeRepository.GetAllUserTypes();
-        //    //userProfile.UserTypes = userTypes;
-        //    return View(userProfile);
-        //}
-        [Authorize]
-        [HttpGet]
-        public ActionResult Details(string FirebaseUserId)
+        // GET: UserProfileController/Details/5
+        public ActionResult Details(string firebaseUserId)
         {
-            UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(FirebaseUserId);
-            List<Vehicle> vehicle = _vehicleRepository.GetVehicleByOwnerId(userProfile.Id);
-            //UserProfile userProfile = _userProfileRepo.GetUserProfileById(id);
-            //var userTypes = _userTypeRepository.GetAllUserTypes();
-            //userProfile.UserTypes = userTypes;
-
-            UserProfileViewModel vm = new UserProfileViewModel()
-            {
-                UserProfile = userProfile,
-                Vehicle = vehicle,
-                
-            };
-
-            return View(vm);
-            //new { OwnerId = userProfile.Id }
-
-
+            UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
+            return View(userProfile);
         }
 
         // GET: UserProfileController/Create
@@ -114,15 +86,11 @@ namespace RiseAndShine.Controllers
         }
 
         private readonly IUserProfileRepository _userProfileRepo;
-        private readonly IVehicleRepository _vehicleRepository;
-        //private readonly IUserTypeRepository _userTypeRepository;
 
-        // ASP.NET will give us an instance of our UserProfile  Repository. This is called "Dependency Injection"
-        public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository)
+        // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
+        public UserProfileController(IUserProfileRepository userProfileRepository)
         {
-            //_userTypeRepository = userTypeRepository;
             _userProfileRepo = userProfileRepository;
-            _vehicleRepository = vehicleRepository; 
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using RiseAndShine.Auth.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiseAndShine.Models
 {
@@ -11,10 +9,7 @@ namespace RiseAndShine.Models
         public string Make { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
-        [DataType(DataType.Date)]
         public DateTime ManufactureDate { get; set; }
-        public int OwnerId { get; set; }
-
 
     }
 }

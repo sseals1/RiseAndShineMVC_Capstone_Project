@@ -1,4 +1,4 @@
-﻿@model RiseAndShine.Models.ViewModels.UserProfileViewModel
+﻿@model RiseAndShine.Models.UserProfile
 
 @{
     ViewData["Title"] = "Details";
@@ -7,62 +7,43 @@
 <h1>Account Details</h1>
 
 <div>
-    <h4>@Model.UserProfile.Name</h4>
+
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="row">
-        @*<dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.FirebaseUserId)
-        </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.FirebaseUserId)
-        </dd>*@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Id)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Id)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.UserType)
+            @Html.DisplayNameFor(model => model.Phone)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.UserType.Name)
-        </dd>
-        @*<dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-        </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.ImageURL)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.ImageURL)
+            @Html.DisplayFor(model => model.Phone)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Email)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Email)
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Phone)
+            @Html.DisplayNameFor(model => model.UserType)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Phone)
+            @Html.DisplayFor(model => model.UserType.Name)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Address)
+        <dt>
+        <br/>
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Address)
-        </dd>
-            
-        <a type="button" class="btn btn-primary" asp-controller="Vehicle"  asp-action="Create">Add Vehicle </a>
-               
+        <dt>
+            <a type="button" class="btn btn-primary" role="button" asp-area="" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>   
+        </dt>
     </dl>
 </div>
-<td>
-</td>
-
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /*id = Model.Id*/ })
+    <a asp-action="Index">Back to List</a>
+</div>

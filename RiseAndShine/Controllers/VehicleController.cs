@@ -2,69 +2,65 @@
 using Microsoft.AspNetCore.Mvc;
 using RiseAndShine.Auth.Models;
 using RiseAndShine.Models;
-using RiseAndShine.Repositories;
-using System;
-using System.Collections.Generic;
-using RiseAndShine.Models.ViewModels;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RiseAndShine.Controllers
 {
-    [Authorize]
     public class VehicleController : Controller
     {
         // GET: CarController1
-        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: CarController1/Details/5
-        [HttpGet]
         public ActionResult Details(int id)
         {
-
-            List<Vehicle> vehicle = _vehicleRepo.GetVehicleByOwnerId(id);
+            Vehicle vehicle = _vehicleRepo.GetVehicleById(id);           
             return View(vehicle);
         }
 
-        // GET: CarController1/Create/1
-        public ActionResult Create()
+        // GET: CarController1/Create
+        public ActionResult CreateVehicle(Vehicle vehicle)
         {
-            return View();
+            //var newVehicle = new Vehicle();
+            //{
+            //    Make = newVehicle.Make,
+            //    Model = newVehicle.Model;
+            //    Color = newVehicle.Color
+            //    ManufactureDate = newVehicle.ManufactureDate
+               
+            //};
+
+            //_vehicleRepository.Add(newVehicle);
+            return RedirectToAction("UPWithCars", "UserProfile");
         }
 
-        //POST: CarController1/Create
-
+        // POST: CarController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Vehicle vehicle)
+        public ActionResult Create(IFormCollection collection)
         {
-          
             try
             {
-                var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-                var newVehicle = new Vehicle
-                {
-                    Make = vehicle.Make,
-                    Model = vehicle.Model,
-                    Color = vehicle.Color,
-                    ManufactureDate = vehicle.ManufactureDate,
-                    OwnerId = ownerId
+                //var newVehicle = new Vehicle();
+                //{
+                //    Make = newVehicle.Make,
+                //    Model = newVehicle.Model;
+                //    Color = newVehicle.Color
+                //    ManufactureDate = newVehicle.ManufactureDate
 
-                };
-                _vehicleRepo.Add(newVehicle);
-                return RedirectToAction("Details", "UserProfile");
+                //};
+
+                //return RedirectToAction("UPWithCars", "UserProfile");
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch
             {
-                return View(vehicle);
+                //_vehicleRepository.Add(newVehicle);
+                return View();
             }
-
         }
-
 
         // GET: CarController1/Edit/5
         public ActionResult Edit(int id)
@@ -108,13 +104,9 @@ namespace RiseAndShine.Controllers
             }
         }
         private readonly IVehicleRepository _vehicleRepo;
-        private readonly IUserProfileRepository _userProfileRepo;
-
-        public VehicleController(IVehicleRepository vehicleRepository, IUserProfileRepository userProfileRepo)
+        public VehicleController(IVehicleRepository vehicleRepository)
         {
-            _userProfileRepo = userProfileRepo;
             _vehicleRepo = vehicleRepository;
         }
     }
 }
-

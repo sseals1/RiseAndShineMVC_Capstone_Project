@@ -33,7 +33,6 @@ namespace RiseAndShine
             services.AddControllersWithViews();
             services.AddTransient<IFirebaseAuthService, FirebaseAuthService>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
-            services.AddTransient<IVehicleRepository, VehicleRepository>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -57,7 +56,6 @@ namespace RiseAndShine
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();
 
             app.UseAuthorization();
 
