@@ -7,7 +7,7 @@ namespace RiseAndShine.Models
     {
         SqlConnection Connection { get; }
 
-        List<ServiceRequest> GetServiceRequestByUserId(int id);
-        //List<ServiceRequest> GetServiceRequestByVehicleId(int vehicleId);
+        //List<ServiceRequest> GetServiceRequestByUserId(int id);
+        List<ServiceRequest> GetServiceRequestByVehicleId(int vehicleId);
     }
 }
