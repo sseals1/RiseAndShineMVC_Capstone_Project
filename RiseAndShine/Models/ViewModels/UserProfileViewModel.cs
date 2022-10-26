@@ -11,6 +11,8 @@ namespace RiseAndShine.Models.ViewModels
         public UserProfile UserProfile { get; set; }
         public List<Vehicle> Vehicles { get; set; }    
         public List<ServiceRequest> ServiceRequests { get; set; } 
+        public List<PackageType> PackageTypes { get; set; }
+        public ServiceRequest ServiceRequest { get; set; }
       
     }
 }

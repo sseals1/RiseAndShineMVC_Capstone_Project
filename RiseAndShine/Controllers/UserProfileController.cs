@@ -39,6 +39,7 @@ namespace RiseAndShine.Controllers
 
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
+         
             var vIds = vehicles.Select(v => v.Id).ToList();
 
             List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
@@ -89,7 +90,16 @@ namespace RiseAndShine.Controllers
         // GET: UserProfileController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
+            var ServiceRequest = new ServiceRequest();
+             List<PackageType> packageTypes = _packageTypeRepo.GetAll();
+            UserProfileViewModel vm = new UserProfileViewModel()
+            {
+                ServiceRequest = serviceRequest,
+                PackageTypes = packageTypes
+             
+            };
+            return View(vm);
         }
 
         // POST: UserProfileController/Edit/5
@@ -130,14 +140,17 @@ namespace RiseAndShine.Controllers
 
         private readonly IUserProfileRepository _userProfileRepo;
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly IPackageTypeRepository _packageTypeRepo;
         private readonly IServiceRequestRepository _serviceRequestRepo;
+        private readonly IPackageTypeRepository packageTypeRepo;
 
         // ASP.NET will give us an instance of our UserProfile  Repository. This is called "Dependency Injection"
-        public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository, IServiceRequestRepository serviceRequestRepository)
+        public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository, IServiceRequestRepository serviceRequestRepository, IPackageTypeRepository packageTypeRepository)
         {
             _serviceRequestRepo = serviceRequestRepository;
             _userProfileRepo = userProfileRepository;
             _vehicleRepository = vehicleRepository;
+            _packageTypeRepo = packageTypeRepository;
         }
     }
 }

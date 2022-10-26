@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RiseAndShine.Auth;
 using RiseAndShine.Models;
+using RiseAndShine.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace RiseAndShine
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IVehicleRepository, VehicleRepository>();
             services.AddTransient<IServiceRequestRepository, ServiceRequestRepository>();
+            services.AddTransient<IPackageTypeRepository, PackageTypeRepository>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
