@@ -84,5 +84,32 @@ namespace RiseAndShine.Models
                 }
             }
         }
+        public void Update(ServiceRequest serviceRequest)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE ServiceRequest
+                           SET CardId = @CarId,
+                               DetailTypeId = @ServiceTypeId,
+                               ServiceDate = @ServiceDate,
+                               ServiceProviderId = @ServiceProviderId, 
+                               Note = @Note
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
+                    DbUtils.AddParameter(cmd, "@Name", serviceRequest.CarId);
+                    DbUtils.AddParameter(cmd, "@Email", serviceRequest.DetailTypeId);
+                    DbUtils.AddParameter(cmd, "@DateCreated", serviceRequest.ServiceDate);
+                    DbUtils.AddParameter(cmd, "@ImageUrl", serviceRequest.ServiceProviderId);
+                    DbUtils.AddParameter(cmd, "@ImageUrl", serviceRequest.Note);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
