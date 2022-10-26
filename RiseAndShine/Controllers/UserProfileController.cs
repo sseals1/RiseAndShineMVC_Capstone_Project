@@ -40,6 +40,7 @@ namespace RiseAndShine.Controllers
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
             var vIds = vehicles.Select(v => v.Id).ToList();
+
             List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
             foreach (var Id in vIds)
             {
