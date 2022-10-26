@@ -35,6 +35,9 @@ namespace RiseAndShine.Models
         public static int GetInt(SqlDataReader reader, string column)
         {
             return reader.GetInt32(reader.GetOrdinal(column));
+        }public static decimal GetDecimal(SqlDataReader reader, string column)
+        {
+            return reader.GetDecimal(reader.GetOrdinal(column));
         }
 
         /// <summary>

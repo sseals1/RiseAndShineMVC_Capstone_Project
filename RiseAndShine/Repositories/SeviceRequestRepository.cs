@@ -25,7 +25,7 @@ namespace RiseAndShine.Models
             }
         }
 
-        public List<ServiceRequest> GetServiceRequestByUserId(int id)
+        public List<ServiceRequest> GetServiceRequestByVehicleId(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -33,16 +33,18 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
-                                up.FirstName AS FirstName, up.LastName AS LastName,
+                         SELECT sr.Id, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
+                             
                                 dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
                          FROM ServiceRequest sr
-                         JOIN UserProfile up ON sr.ServiceProviderId = up.Id
+                         
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id
+
                                 WHERE sr.CarId = @carId
                                 ORDER BY up.LastName
                     ";
                     DbUtils.AddParameter(cmd, "@carId", id);
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
@@ -50,11 +52,12 @@ namespace RiseAndShine.Models
                         {
                             ServiceRequest serviceRequest = new ServiceRequest
                             {
-                                Id = DbUtils.GetInt(reader, "Id"),
-                                CarId = DbUtils.GetInt(reader, "CarId"),
+                                Id = DbUtils.GetInt(reader, "Id"),                              
                                 DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
-                                ServiceProviderId = DbUtils.GetInt(reader, "ServiceProvider"),
+
+                                ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
+
                                 Note = DbUtils.GetString(reader, "Note"),
 
                                 //Address = reader.GetString(reader.GetOrdinal("Address")),
@@ -64,15 +67,15 @@ namespace RiseAndShine.Models
                                 //    Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 //    Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
                                 //}
-                                UserProfile = new UserProfile()
-                                {
-                                    FirstName = DbUtils.GetString(reader, "FirstName"),
-                                    LastName = DbUtils.GetString(reader, "LastName"),
-                                },
+                                //UserProfile = new UserProfile()
+                                //{
+                                //    FirstName = DbUtils.GetString(reader, "FirstName"),
+                                //    LastName = DbUtils.GetString(reader, "LastName"),
+                                //},
                                 Package = new PackageType()
                                 {
-                                     Name = DbUtils.GetString(reader, "Name"),
-                                    Price = DbUtils.GetInt(reader, "Price"),
+                                     Name = DbUtils.GetString(reader, "PackageName"),
+                                    Price = DbUtils.GetDecimal(reader, "PackagePrice"),
                                 }
                             };
 
