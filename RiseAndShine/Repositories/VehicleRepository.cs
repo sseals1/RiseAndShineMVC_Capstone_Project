@@ -74,7 +74,7 @@ namespace RiseAndShine.Models
                     cmd.CommandText = @"
                       SELECT c.Id AS VehicleId, c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, ImageUrl,
                         sr.Id AS ServiceRequestId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
-                        dt.DetailPackageName, dt.PackagePrice
+                        dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
 
                         FROM Car c
                         LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
@@ -124,8 +124,8 @@ namespace RiseAndShine.Models
                                     Note = DbUtils.GetString(reader, "Note"),
                                     Package = new PackageType()
                                     {
-                                        Name = DbUtils.GetString(reader, "Name"),
-                                        Price = DbUtils.GetInt(reader, "Price"),
+                                        Name = DbUtils.GetString(reader, "PackageName"),
+                                        Price = DbUtils.GetDecimal(reader, "PackagePrice"),
                                     }
                                 });
                             }
