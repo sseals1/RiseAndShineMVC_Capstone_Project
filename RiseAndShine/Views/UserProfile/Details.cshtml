@@ -91,6 +91,31 @@
                 </div>
             }
         </dt>
+        <dt>
+
+            @foreach (ServiceRequest serviceRequest in Model.ServiceRequests)
+            {
+                <div class="card m-4" style="width: 18rem;">                  
+                    {
+                        <img src="@serviceRequest.UserProfile.Name" class="card-img-top" alt="RiseAndShine_Car" />
+                    }
+                    <div class="card-body">
+                        <div>
+                            <label class="font-weight-bold">Make:</label>
+                            <span>@serviceRequest.ServiceDate</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Model:</label>
+                            <span>@serviceRequest.Package.Name</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Color:</label>
+                            <span>@serviceRequest.Package.Price</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </dt>
 
         <dd>
             <a type="button" class="btn btn-primary" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>

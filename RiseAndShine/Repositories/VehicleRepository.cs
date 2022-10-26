@@ -83,7 +83,7 @@ namespace RiseAndShine.Models
                         WHERE OwnerId = @ownerId
                     ";
 
-                    cmd.Parameters.AddWithValue("@ownerId", id);
+                    DbUtils.AddParameter(cmd, "@ownerId", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
