@@ -25,6 +25,51 @@ namespace RiseAndShine.Models
             }
         }
 
+        public List<ServiceRequest> GetAllServiceRequests()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                         SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
+                             
+                                dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
+                         FROM ServiceRequest sr
+                         
+                         JOIN DetailType dt ON sr.DetailTypeId = dt.Id                               
+                                
+                    ";
+                   
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
+                        while (reader.Read())
+                        {
+                            ServiceRequest serviceRequest = new ServiceRequest
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
+                                ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
+                                ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
+                                Note = DbUtils.GetString(reader, "Note"),
+                                Package = new PackageType()
+                                {
+                                    Name = DbUtils.GetString(reader, "PackageName"),
+                                    Price = DbUtils.GetDecimal(reader, "PackagePrice"),
+                                }
+                            };
+
+                            serviceRequests.Add(serviceRequest);
+                        }
+
+                        return serviceRequests;
+                    }
+                }
+            }
+        }
+
         public List<ServiceRequest> GetServiceRequestByVehicleId(int id)
         {
             using (SqlConnection conn = Connection)

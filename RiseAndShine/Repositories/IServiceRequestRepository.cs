@@ -11,5 +11,6 @@ namespace RiseAndShine.Models
         List<ServiceRequest> GetServiceRequestByVehicleId(int vehicleId);
         void UpdateServiceRequest(ServiceRequest serviceRequest);
         void DeleteServiceRequest(int id);
+        List<ServiceRequest> GetAllServiceRequests();
     }
 }

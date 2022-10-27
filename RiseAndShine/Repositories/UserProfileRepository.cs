@@ -76,6 +76,60 @@ namespace RiseAndShine.Models
             }
         }
 
+
+        public List<UserProfile> GetAllOwners()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                   SELECT up.FirebaseUserId, up.Id, up.[FirstName], up.LastName, up.Email, up.Phone, up.Address, up.UserTypeId,
+                        ut.[Name] AS UserTypeName, 
+                        c.Make, c.Model, c.Color, c.ImageUrl, c.ManufactureDate,
+                        sr.Note,
+                        d.DetailPackageName, d.PackagePrice
+                   FROM UserProfile up
+
+                        JOIN UserType ut ON ut.Id = up.UserTypeId
+                        LEFT JOIN Car c ON c.OwnerId = up.Id
+                        LEFT JOIN ServiceRequest sr ON sr.CarId = c.Id
+                        LEFT JOIN DetailType d ON d.Id = sr.DetailTypeId
+
+                   WHERE ut.[Name] = 'Owner'
+                    ";
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<UserProfile> UserProfiles = new List<UserProfile>();
+                        while (reader.Read())
+                        {
+                            UserProfile UserProfile = new UserProfile
+                            {
+                                FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                UserType = new UserType()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                    Name = reader.GetString(reader.GetOrdinal("UserTypeName")),
+                                }
+                            };
+
+                            UserProfiles.Add(UserProfile);
+                        }
+
+                        return UserProfiles;
+                    }
+                }
+            }
+        }
         public UserProfile GetUserProfileById(int id)
         {
             using (SqlConnection conn = Connection)

@@ -38,6 +38,7 @@ namespace RiseAndShine.Controllers
         {
             var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+            var srList = _serviceRequestRepo.GetAllServiceRequests();
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
          
@@ -58,7 +59,8 @@ namespace RiseAndShine.Controllers
             {
                 UserProfile = userProfile,
                 Vehicles = vehicles,
-                ServiceRequests = serviceRequests
+                ServiceRequests = serviceRequests,
+                AvailableServiceRequests = srList
                 
             };
 
@@ -126,14 +128,15 @@ namespace RiseAndShine.Controllers
         }
 
         // GET: UserProfileController/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
             serviceRequest.Package = _packageTypeRepo.GetPackageTypeById(id);
             UserProfileViewModel vm = new UserProfileViewModel()
             {
-                
-                ServiceRequest = serviceRequest,              
+
+                ServiceRequest = serviceRequest,
             };
             return View(vm);
         }
@@ -141,7 +144,7 @@ namespace RiseAndShine.Controllers
         // POST: UserProfileController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteServiceRequest(int id)
+        public ActionResult Delete(int id, ServiceRequest serviceRequest)
         {
             try
             {
@@ -150,7 +153,7 @@ namespace RiseAndShine.Controllers
             }
             catch
             {
-                return View();
+                return View(serviceRequest);
             }
         }
 
