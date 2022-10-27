@@ -32,7 +32,7 @@ namespace RiseAndShine.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                              SELECT  DetailPackageName AS PackageName, PackagePrice AS PackagePrice
+                              SELECT  Id, DetailPackageName AS PackageName, PackagePrice AS PackagePrice
                                   FROM DetailType                   
                     ";               
 
@@ -43,6 +43,7 @@ namespace RiseAndShine.Repositories
                         {
                             PackageType packageTypeObj = new PackageType
                             {
+                                Id = DbUtils.GetInt(reader, "Id"),
                                 Name = DbUtils.GetString(reader, "PackageName"),
                                 Price = DbUtils.GetDecimal(reader, "PackagePrice"),
                             };
@@ -51,6 +52,47 @@ namespace RiseAndShine.Repositories
                         }
 
                         return packageTypes;
+                    }
+                }
+            }
+        }
+
+        public PackageType GetPackageTypeById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                      SELECT  
+                        d.Id, 
+                        d.DetailPackageName AS Name, 
+                        d.PackagePrice AS Price
+                        
+                        FROM DetailType d
+                       
+                        WHERE d.Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            PackageType packageType = new PackageType()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                Price = DbUtils.GetDecimal(reader, "Price"),
+    
+                            };
+
+                            return packageType;
+                        }
+
+                        return null;
                     }
                 }
             }
