@@ -128,16 +128,24 @@ namespace RiseAndShine.Controllers
         // GET: UserProfileController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
+            serviceRequest.Package = _packageTypeRepo.GetPackageTypeById(id);
+            UserProfileViewModel vm = new UserProfileViewModel()
+            {
+                
+                ServiceRequest = serviceRequest,              
+            };
+            return View(vm);
         }
 
         // POST: UserProfileController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteServiceRequest(int id)
         {
             try
             {
+                _serviceRequestRepo.DeleteServiceRequest(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
