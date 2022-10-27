@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Amazon.EC2.Model;
 using System.Xml.Linq;
 using System.Linq;
+using System;
 
 namespace RiseAndShine.Controllers
 {
@@ -93,6 +94,8 @@ namespace RiseAndShine.Controllers
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
             var ServiceRequest = new ServiceRequest();
              List<PackageType> packageTypes = _packageTypeRepo.GetAll();
+            //PackageType packageType = _packageTypeRepo.GetPackageTypeById(id);
+
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 ServiceRequest = serviceRequest,
@@ -105,15 +108,17 @@ namespace RiseAndShine.Controllers
         // POST: UserProfileController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ServiceRequest serviceRequest)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _serviceRequestRepo.UpdateServiceRequest(serviceRequest);
+
+                return RedirectToAction("Details");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(serviceRequest);
             }
         }
 
@@ -142,7 +147,7 @@ namespace RiseAndShine.Controllers
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IPackageTypeRepository _packageTypeRepo;
         private readonly IServiceRequestRepository _serviceRequestRepo;
-        private readonly IPackageTypeRepository packageTypeRepo;
+       
 
         // ASP.NET will give us an instance of our UserProfile  Repository. This is called "Dependency Injection"
         public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository, IServiceRequestRepository serviceRequestRepository, IPackageTypeRepository packageTypeRepository)

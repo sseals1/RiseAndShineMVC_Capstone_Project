@@ -1,4 +1,5 @@
-﻿@model RiseAndShine.Models.ServiceRequest
+﻿@model RiseAndShine.Models.ViewModels.UserProfileViewModel
+@{
     ViewData["Title"] = "Edit";
 }
 
@@ -11,42 +12,44 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
-                <input asp-for="CarId" class="form-control" />
-                <span asp-validation-for="CarId" class="text-danger"></span>
+            <label asp-for="CarId" class="control-label"></label>
+            <input asp-for="CarId" class="form-control" />
+            <span asp-validation-for="CarId" class="text-danger"></span>
             </div>*@
-            @*<select asp-for="DetailTypeId" class="form-control">
-                <option value="">select service...</option>
-                @foreach (PackageType pt in Model.Package)
+            <select asp-for="ServiceRequest.Package" class="form-control">
+                <label asp-for="PackageType" class="control-label"></label>
+                <option value="PackageType.Id">select package type...</option>
+               
+                @foreach (PackageType pt in Model.PackageTypes)
                 {
-                    <option value="@sr.id">@($"${sr.package.price}")</option>
+                    <option value="@pt.Id">@($"{pt.Name} ${pt.Price}")</option>
                 }
-            </select>*@
-            <select class="form-group">
-                <label asp-for="DetailTypeId" class="control-label"></label>
-                <select asp-for="DetailTypeId" class="form-control" />
-                <span asp-validation-for="DetailTypeId" class="text-danger"></span>
             </select>
+            @* <select class="form-group">
+            <label asp-for="DetailType" class="control-label"></label>
+            <select asp-for="DetailType" class="form-control" />
+            <span asp-validation-for="DetailType" class="text-danger"></span>
+            </select>*@
 
             <div class="form-group">
-                <label asp-for="ServiceDate" class="control-label"></label>
-                <input asp-for="ServiceDate" class="form-control" />
-                <span asp-validation-for="ServiceDate" class="text-danger"></span>
+                <label asp-for="ServiceRequest.ServiceDate.Date" class="control-label"></label>
+                <input asp-for="ServiceRequest.ServiceDate.Date" class="form-control" />
+                <span asp-validation-for="ServiceRequest.ServiceDate.Date" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="ServiceProviderId" class="control-label"></label>
-                <input asp-for="ServiceProviderId" class="form-control" />
-                <span asp-validation-for="ServiceProviderId" class="text-danger"></span>
+            <label asp-for="ServiceProviderId" class="control-label"></label>
+            <input asp-for="ServiceProviderId" class="form-control" />
+            <span asp-validation-for="ServiceProviderId" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
+                <label asp-for="ServiceRequest.Note" class="control-label"></label>
+                <input asp-for="ServiceRequest.Note" class="form-control" />
+                <span asp-validation-for="ServiceRequest.Note" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -56,9 +59,12 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+

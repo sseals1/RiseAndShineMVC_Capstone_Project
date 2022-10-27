@@ -116,7 +116,7 @@ namespace RiseAndShine.Models
         }
 
 
-        public void Update(ServiceRequest serviceRequest)
+        public void UpdateServiceRequest(ServiceRequest serviceRequest)
         {
             using (var conn = Connection)
             {
@@ -125,19 +125,16 @@ namespace RiseAndShine.Models
                 {
                     cmd.CommandText = @"
                         UPDATE ServiceRequest
-                           SET CardId = @CarId,
-                               DetailTypeId = @ServiceTypeId,
-                               ServiceDate = @ServiceDate,
-                               ServiceProviderId = @ServiceProviderId, 
+                           
+                         SET   DetailTypeId = @ServiceTypeId,
+                               ServiceDate = @ServiceDate,                               
                                Note = @Note
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
-                    DbUtils.AddParameter(cmd, "@Name", serviceRequest.CarId);
-                    DbUtils.AddParameter(cmd, "@Email", serviceRequest.DetailTypeId);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
                     DbUtils.AddParameter(cmd, "@DateCreated", serviceRequest.ServiceDate);
-                    DbUtils.AddParameter(cmd, "@ImageUrl", serviceRequest.ServiceProviderId);
-                    DbUtils.AddParameter(cmd, "@ImageUrl", serviceRequest.Note);
+                    DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
 
                     cmd.ExecuteNonQuery();
                 }

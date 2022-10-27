@@ -8,5 +8,6 @@ namespace RiseAndShine.Repositories
     {
         SqlConnection Connection { get; }
         List<PackageType> GetAll();
+        PackageType GetPackageTypeById(int id);
     }
 }

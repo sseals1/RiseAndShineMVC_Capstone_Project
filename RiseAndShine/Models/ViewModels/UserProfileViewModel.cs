@@ -12,6 +12,7 @@ namespace RiseAndShine.Models.ViewModels
         public List<Vehicle> Vehicles { get; set; }    
         public List<ServiceRequest> ServiceRequests { get; set; } 
         public List<PackageType> PackageTypes { get; set; }
+        public PackageType PackageType { get; set; }   
         public ServiceRequest ServiceRequest { get; set; }
       
     }
