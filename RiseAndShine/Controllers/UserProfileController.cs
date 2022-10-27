@@ -47,7 +47,7 @@ namespace RiseAndShine.Controllers
             foreach (var Id in vIds)
             {
                 var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);
-  
+                
                 serviceRequests.AddRange(srByVehicle);
             }
 
@@ -59,6 +59,7 @@ namespace RiseAndShine.Controllers
                 UserProfile = userProfile,
                 Vehicles = vehicles,
                 ServiceRequests = serviceRequests
+                
             };
 
             return View(vm);
@@ -94,11 +95,12 @@ namespace RiseAndShine.Controllers
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
             var ServiceRequest = new ServiceRequest();
              List<PackageType> packageTypes = _packageTypeRepo.GetAll();
-            //PackageType packageType = _packageTypeRepo.GetPackageTypeById(id);
+             serviceRequest.Package = _packageTypeRepo.GetPackageTypeById(id);
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 ServiceRequest = serviceRequest,
+                //PackageType = packageType,
                 PackageTypes = packageTypes
              
             };
@@ -113,6 +115,7 @@ namespace RiseAndShine.Controllers
             try
             {
                 _serviceRequestRepo.UpdateServiceRequest(serviceRequest);
+
 
                 return RedirectToAction("Details");
             }
