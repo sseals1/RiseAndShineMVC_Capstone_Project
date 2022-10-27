@@ -126,14 +126,14 @@ namespace RiseAndShine.Models
                     cmd.CommandText = @"
                         UPDATE ServiceRequest
                            
-                         SET   DetailTypeId = @ServiceTypeId,
-                               ServiceDate = @ServiceDate,                               
+                         SET   DetailTypeId = @DetailTypeId,
+                               ServiceDate = @ServiceDate,
                                Note = @Note
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
-                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
-                    DbUtils.AddParameter(cmd, "@DateCreated", serviceRequest.ServiceDate);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.Package.Id);
+                    DbUtils.AddParameter(cmd, "@ServiceDate", serviceRequest.ServiceDate);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
 
                     cmd.ExecuteNonQuery();

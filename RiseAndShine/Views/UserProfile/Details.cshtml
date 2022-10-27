@@ -7,11 +7,12 @@
 <h1>Account Details</h1>
 
 
+<div class="col-md-12 bg-dark text-left">
+</div>
+
 <h4>@Model.UserProfile.Name</h4>
 <hr />
-<div class="col-md-12 bg-dark text-center">
-    <a type="button" text-right class="btn btn-primary" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>
-</div>
+    <a type="button" text-right class="btn btn-outline-dark" asp-controller="Vehicle" asp-action="Create">Add Vehicle </a>
 <div class="row">
     <div class="card-body">
         @*<dt class = "col-sm-2">
@@ -83,7 +84,7 @@
                  style="height : 30px; width : 30px"
                  class="card-img-top"
                  alt="RiseAndShine" />
-            </div>
+            </div>             
             @* else
         {
         <img src="@car.ImageUrl" class="card-img-top" alt="RiseAndShine_Car" />

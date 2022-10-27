@@ -11,35 +11,41 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-            <label asp-for="Id" class="control-label"></label>
-            <input asp-for="Id" class="form-control" />
-            <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
-            <label asp-for="CarId" class="control-label"></label>
-            <input asp-for="CarId" class="form-control" />
-            <span asp-validation-for="CarId" class="text-danger"></span>
+                <input asp-for="ServiceRequest.Id" type="hidden"/>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="PackageType.Name" class="control-label"></label>
+                <select asp-for="PackageType.Name" class="form-control" />
+                <span asp-validation-for="PackageType.Id" class="text-danger"></span>
             </div>*@
-            <select asp-for="ServiceRequest.Package" class="form-control">
-                <label asp-for="PackageType" class="control-label"></label>
-                <option value="PackageType.Id">select package type...</option>
-               
+            @*<div class="form-group">
+            <label asp-for="Vehicle.Make" class="control-label"></label>
+            <input asp-for="Vehicle.Make" class="form-control" />
+            <span asp-validation-for="Vehicle.Make" class="text-danger"></span>
+            </div>*@
+
+
+            <select asp-for="ServiceRequest.Package.Id" class="form-control">
+                <label asp-for="ServiceRequest.Package.Id" class="control-label"></label>
+                <option value="ServiceRequest.PackageType.Id">select package type...</option>               
                 @foreach (PackageType pt in Model.PackageTypes)
                 {
                     <option value="@pt.Id">@($"{pt.Name} ${pt.Price}")</option>
                 }
             </select>
-            @* <select class="form-group">
-            <label asp-for="DetailType" class="control-label"></label>
-            <select asp-for="DetailType" class="form-control" />
-            <span asp-validation-for="DetailType" class="text-danger"></span>
+
+
+          @*   <select class="form-group">
+            <label asp-for="PackageType.Name" class="control-label"></label>
+            <select asp-for="PackageType.Name" class="form-control" />
+            <span asp-validation-for="PackageType.Name" class="text-danger"></span>
             </select>*@
 
             <div class="form-group">
-                <label asp-for="ServiceRequest.ServiceDate.Date" class="control-label"></label>
-                <input asp-for="ServiceRequest.ServiceDate.Date" class="form-control" />
-                <span asp-validation-for="ServiceRequest.ServiceDate.Date" class="text-danger"></span>
+                <label asp-for="ServiceRequest.ServiceDate" class="control-label"></label>
+                <input asp-for="ServiceRequest.ServiceDate" class="form-control" />
+                <span asp-validation-for="ServiceRequest.ServiceDate" class="text-danger"></span>
             </div>
             @*<div class="form-group">
             <label asp-for="ServiceProviderId" class="control-label"></label>
