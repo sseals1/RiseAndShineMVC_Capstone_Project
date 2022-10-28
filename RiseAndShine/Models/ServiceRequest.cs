@@ -15,6 +15,7 @@ namespace RiseAndShine.Models
         public string Note { get; set; }
         public UserProfile UserProfile { get; set; }
         public PackageType Package { get; set; }
+        public Vehicle Vehicle { get; set; }    
         
         
     }

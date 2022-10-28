@@ -27,6 +27,7 @@ namespace RiseAndShine.Models
         public int NeighborhoodId { get; set; }
         public List<PackageType> PackageTypes { get; set; }
         public ServiceRequest ServiceRequest { get; set; }
+        public Vehicle Vehicle  { get; set; }
         
     }
 }

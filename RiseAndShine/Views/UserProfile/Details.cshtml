@@ -109,7 +109,10 @@
                     <label class="font-weight-bold">Color:</label>
                     <span>@car.Color</span>
                 </div>
-                <a type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">Schedule Service</a>
+                <span>
+                    @*@Html.ActionLink("Details", "ServiceRequest", new { id=car.Id})*@
+                    <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
+                </span>
             </div>
         </div>
     }
@@ -131,13 +134,12 @@
                 </dt>
                 <dd class="card-body">
                     <h4>Service Request</h4>
-                    @foreach (Vehicle v in Model.Vehicles)
-                    {
+                    
                         <div>
                             <label class="font-weight-bold"></label>
-                            <span>@v.Make</span>
+                            <span>@sr.Vehicle.Make</span>
                         </div>
-                    }
+                    
 
                     <div>
                         <label class="font-weight-bold">Service Provider:</label>

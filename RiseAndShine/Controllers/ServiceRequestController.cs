@@ -3,18 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SharePoint.Client;
 using RiseAndShine.Models;
 using RiseAndShine.Models.ViewModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace RiseAndShine.Controllers
 {
     public class ServiceRequestController : Controller
     {
         private readonly IServiceRequestRepository _serviceRequestRepo;
-        public ServiceRequestController(IServiceRequestRepository serviceRequestRepository)
+        private readonly IUserProfileRepository _userProfileRepo;
+        public ServiceRequestController(IServiceRequestRepository serviceRequestRepository, IUserProfileRepository userProfileRepository)
         {
             _serviceRequestRepo = serviceRequestRepository;
-            
+            _userProfileRepo = userProfileRepository;
+
         }
         // GET: ServiceRequestController
         public ActionResult Index()
@@ -25,35 +29,43 @@ namespace RiseAndShine.Controllers
         // GET: ServiceRequestController/Details/5
         public ActionResult Details(int id)
         {
-            List<ServiceRequest> availableServiceRequest = _serviceRequestRepo.GetAllServiceRequests();
-           return View(availableServiceRequest);
+            UserProfile userProfile = new UserProfile();
+            List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
+            availableServiceRequests = _serviceRequestRepo.GetAllAvailableServiceRequests();
+            userProfile = _userProfileRepo.GetUserProfileById(id);
+
+            foreach (ServiceRequest serviceRequest in availableServiceRequests)
+            {
+                serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
+            }
+
+            ServiceRequestUserProfileViewModel vm = new ServiceRequestUserProfileViewModel()
+            {
+                ServiceRequests = availableServiceRequests
+            };
+
+            return View(vm);
+
         }
-     
+
 
         // GET: ServiceRequestController/Create
         public ActionResult Create()
         {
-            
             return View();
         }
 
         // POST: ServiceRequestController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ServiceRequest serviceRequest)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            
+                return View();         
         }
 
         // GET: ServiceRequestController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int carId)
         {
             return View();
         }
@@ -61,15 +73,25 @@ namespace RiseAndShine.Controllers
         // POST: ServiceRequestController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ServiceRequest serviceRequest)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                var newServiceRequest = new ServiceRequest()
+                {
+                    CarId = serviceRequest.CarId,
+                    DetailTypeId = serviceRequest.DetailTypeId,
+                    ServiceDate = serviceRequest.ServiceDate,
+                    ServiceProviderId = serviceRequest.ServiceProviderId,
+                    Note = serviceRequest.Note,
+                };
+                _serviceRequestRepo.Add(newServiceRequest);
+                return RedirectToAction("Details", "UserProfile");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(serviceRequest);
             }
         }
 
