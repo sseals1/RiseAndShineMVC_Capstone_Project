@@ -38,29 +38,34 @@ namespace RiseAndShine.Controllers
         {
             var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var srList = _serviceRequestRepo.GetAllServiceRequests();
+            var availableSRList = _serviceRequestRepo.GetAllAvailableServiceRequests();
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
          
+         
             var vIds = vehicles.Select(v => v.Id).ToList();
+
 
             List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
             foreach (var Id in vIds)
             {
-                var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);
-                
+                var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);               
                 serviceRequests.AddRange(srByVehicle);
             }
 
-            //var userTypes = _userTypeRepository.GetAllUserTypes();
-            //userProfile.UserTypes = userTypes;
-
+            var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId()
+                .FindAll(c => vehicles.Find(v => v.Id == c.Id)!=null);
+            foreach (ServiceRequest sr in serviceRequestsWithCarId)
+            {
+                sr.Vehicle = _vehicleRepository.GetVehicleByCarId(sr.CarId);               
+            }
+         
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 UserProfile = userProfile,
                 Vehicles = vehicles,
-                ServiceRequests = serviceRequests,
-                AvailableServiceRequests = srList
+                ServiceRequests = serviceRequestsWithCarId,
+                AvailableServiceRequests = availableSRList
                 
             };
 

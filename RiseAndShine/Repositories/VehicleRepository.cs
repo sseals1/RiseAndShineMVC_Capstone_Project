@@ -28,7 +28,9 @@ namespace RiseAndShine.Models
             }
         }
 
-        public List<Vehicle> GetAllVehicles(int ownerId)
+
+
+        public Vehicle GetVehicleByCarId(int carId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -36,15 +38,15 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                             SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate,
-            up.FirstName, up.LastName, up.FirebaseUserId
-                   FROM Car c
-                   JOIN UserProfile up ON up.id = c.OwnerId
+                          SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate           
+                          FROM Car c
+                    WHERE c.Id = @id                
                     ";
 
+                    cmd.Parameters.AddWithValue("@id", carId);
                     using SqlDataReader reader = cmd.ExecuteReader();
-                    List<Vehicle> vehicles = new List<Vehicle>();
-                    while (reader.Read())
+
+                    if (reader.Read())
                     {
                         Vehicle Vehicle = new Vehicle
                         {
@@ -53,14 +55,16 @@ namespace RiseAndShine.Models
                             Model = DbUtils.GetString(reader, "Model"),
                             Color = DbUtils.GetString(reader, "Color"),
                             ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
-
                         };
-
-                        vehicles.Add(Vehicle);
+                        return Vehicle;
+                    }
+                    else
+                    {
+                        return null;
                     }
 
-                    return vehicles;
                 }
+
             }
         }
 
@@ -88,7 +92,7 @@ namespace RiseAndShine.Models
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         //var serviceRequests = new List<ServiceRequest>();
-                        
+
                         List<Vehicle> vehicles = new List<Vehicle>();
                         while (reader.Read())
                         {
@@ -166,7 +170,7 @@ namespace RiseAndShine.Models
             }
         }
 
-       
+
 
     }
 }

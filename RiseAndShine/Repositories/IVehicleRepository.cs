@@ -9,6 +9,7 @@ namespace RiseAndShine.Models
 
         void Add(Vehicle vehicle);
         List<Vehicle> GetVehicleByOwnerIdWithServiceRequests(int ownerId);
+        Vehicle GetVehicleByCarId(int CarId);
 
     }
 }
