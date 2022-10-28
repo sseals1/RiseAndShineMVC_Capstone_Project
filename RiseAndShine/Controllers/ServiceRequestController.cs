@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.SharePoint.Client;
 using RiseAndShine.Models;
+using RiseAndShine.Models.ViewModels;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RiseAndShine.Controllers
 {
@@ -21,12 +25,15 @@ namespace RiseAndShine.Controllers
         // GET: ServiceRequestController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            List<ServiceRequest> availableServiceRequest = _serviceRequestRepo.GetAllServiceRequests();
+           return View(availableServiceRequest);
         }
+     
 
         // GET: ServiceRequestController/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 

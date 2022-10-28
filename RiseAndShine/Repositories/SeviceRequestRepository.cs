@@ -33,13 +33,13 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
+                      SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
                              
                                 dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
                          FROM ServiceRequest sr
                          
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id                               
-                                
+                                WHERE sr.CarId IS NULL
                     ";
                    
                     using (SqlDataReader reader = cmd.ExecuteReader())
