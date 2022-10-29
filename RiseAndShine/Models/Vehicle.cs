@@ -17,6 +17,7 @@ namespace RiseAndShine.Models
         public string ImageUrl { get; set; }   
         public ServiceRequest ServiceRequest { get; set; }
         public List<ServiceRequest> ServiceRequests { get; set; }
+        
 
     }
 }

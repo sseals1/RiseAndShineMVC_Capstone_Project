@@ -155,9 +155,9 @@
                     </div>
                     <div>
                         <label class="font-weight-bold">Package Type:</label>
-                        <span>@sr.Package.Name</span>
+                        <span>@sr.PackageType.Name</span>
                         <label class="font-weight-bold">Price:</label>
-                        <span>@($"${sr.Package.Price}")</span>
+                        <span>@($"${sr.PackageType.Price}")</span>
                     </div>
                     <span>
                         @Html.ActionLink("Edit", "Edit", new { id=sr.Id}) |

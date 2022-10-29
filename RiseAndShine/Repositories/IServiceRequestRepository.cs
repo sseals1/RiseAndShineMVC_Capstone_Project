@@ -14,5 +14,6 @@ namespace RiseAndShine.Models
         List<ServiceRequest> GetAllAvailableServiceRequests();
         List<ServiceRequest> GetAllServiceRequestsWithCarId();
         void Add(ServiceRequest newServiceRequest);
+        void Update(ServiceRequest newServiceRequest);
     }
 }

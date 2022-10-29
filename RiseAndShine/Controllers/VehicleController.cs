@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using RiseAndShine.Models.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace RiseAndShine.Controllers
 {
@@ -18,7 +19,16 @@ namespace RiseAndShine.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //List<Vehicle> vehicles = _vehicleRepo.GetVehicleByOwnerIdWithServiceRequests(ownerId);
+            //var vIds = vehicles.Select(v => v.Id).ToList();
+            // Itterating the vIds obj and passing each Id to the Method
+            
+                List<Vehicle> vehiclesByOwnerId = _vehicleRepo.GetVehiclesByOwnerId(ownerId);
+                // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
+                //vehicles.AddRange(vehiclesByOwnerId);
+           
+            return View(vehiclesByOwnerId);
         }
 
         // GET: CarController1/Details/5
@@ -90,6 +100,7 @@ namespace RiseAndShine.Controllers
         // GET: CarController1/Delete/5
         public ActionResult Delete(int id)
         {
+            Vehicle vehicle = _vehicleRepo.GetVehicleByCarId(id);
             return View();
         }
 

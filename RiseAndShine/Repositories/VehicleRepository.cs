@@ -28,7 +28,47 @@ namespace RiseAndShine.Models
             }
         }
 
+        public List<Vehicle> GetVehiclesByOwnerId(int ownerId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                          SELECT c.OwnerId, c.Id, c.Make, c.Model, c.Color, c.ManufactureDate, c.ImageUrl          
+                          FROM Car c
+                    WHERE c.OwnerId = @ownerId                
+                    ";
 
+                    DbUtils.AddParameter(cmd, "@ownerId", ownerId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<Vehicle> vehicles = new List<Vehicle>();
+                        while (reader.Read())
+                        {
+                            var vehicle = new Vehicle()
+                            {
+
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                OwnerId = DbUtils.GetInt(reader, "OwnerId"),
+                                Make = DbUtils.GetString(reader, "Make"),
+                                Model = DbUtils.GetString(reader, "Model"),
+                                Color = DbUtils.GetString(reader, "Color"),
+                                ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+
+                            };
+
+                            vehicles.Add(vehicle);
+                        }
+                        return vehicles;
+                    }
+                }
+
+            }
+        }
 
         public Vehicle GetVehicleByCarId(int carId)
         {
@@ -38,7 +78,7 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate           
+                          SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate, c.ImageUrl           
                           FROM Car c
                     WHERE c.Id = @id                
                     ";
@@ -55,6 +95,7 @@ namespace RiseAndShine.Models
                             Model = DbUtils.GetString(reader, "Model"),
                             Color = DbUtils.GetString(reader, "Color"),
                             ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl")
                         };
                         return Vehicle;
                     }
@@ -126,7 +167,7 @@ namespace RiseAndShine.Models
                                     ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                     ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
                                     Note = DbUtils.GetString(reader, "Note"),
-                                    Package = new PackageType()
+                                    PackageType = new PackageType()
                                     {
                                         Name = DbUtils.GetString(reader, "PackageName"),
                                         Price = DbUtils.GetDecimal(reader, "PackagePrice"),
@@ -170,6 +211,19 @@ namespace RiseAndShine.Models
             }
         }
 
+        public void DeleteVehicle(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Car WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
     }

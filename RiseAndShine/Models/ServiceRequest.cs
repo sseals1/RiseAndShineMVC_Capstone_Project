@@ -14,7 +14,7 @@ namespace RiseAndShine.Models
         public int ServiceProviderId { get; set; }
         public string Note { get; set; }
         public UserProfile UserProfile { get; set; }
-        public PackageType Package { get; set; }
+        public PackageType PackageType { get; set; }
         public Vehicle Vehicle { get; set; }
 
 
