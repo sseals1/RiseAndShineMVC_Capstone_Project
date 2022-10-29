@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SharePoint.Client;
 using RiseAndShine.Models;
 using RiseAndShine.Models.ViewModels;
+using RiseAndShine.Repositories;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace RiseAndShine.Controllers
     {
         private readonly IServiceRequestRepository _serviceRequestRepo;
         private readonly IUserProfileRepository _userProfileRepo;
-        public ServiceRequestController(IServiceRequestRepository serviceRequestRepository, IUserProfileRepository userProfileRepository)
+        private readonly IPackageTypeRepository _packageTypeRepo;
+        public ServiceRequestController(IServiceRequestRepository serviceRequestRepository, IUserProfileRepository userProfileRepository, IPackageTypeRepository packageTypeRepository)
         {
             _serviceRequestRepo = serviceRequestRepository;
             _userProfileRepo = userProfileRepository;
+            _packageTypeRepo = packageTypeRepository;
 
         }
         // GET: ServiceRequestController
@@ -38,10 +41,12 @@ namespace RiseAndShine.Controllers
             {
                 serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
             }
-
+            List<PackageType> packageTypes = new List<PackageType>();
+            packageTypes = _packageTypeRepo.GetAll();
             ServiceRequestUserProfileViewModel vm = new ServiceRequestUserProfileViewModel()
             {
-                ServiceRequests = availableServiceRequests
+                ServiceRequests = availableServiceRequests,
+                PackageTypes = packageTypes,
             };
 
             return View(vm);

@@ -227,7 +227,7 @@ namespace RiseAndShine.Models
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
                     DbUtils.AddParameter(cmd, "@CarId", serviceRequest.CarId);
                     DbUtils.AddParameter(cmd, "@ServiceProviderId", serviceRequest.ServiceProviderId);
-                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.Package.Id);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
                     DbUtils.AddParameter(cmd, "@ServiceDate", serviceRequest.ServiceDate);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
 
