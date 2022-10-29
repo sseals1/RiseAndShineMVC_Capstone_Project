@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.SharePoint.Client;
 using RiseAndShine.Models;
 using RiseAndShine.Models.ViewModels;
+using RiseAndShine.Repositories;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,10 +15,14 @@ namespace RiseAndShine.Controllers
     {
         private readonly IServiceRequestRepository _serviceRequestRepo;
         private readonly IUserProfileRepository _userProfileRepo;
-        public ServiceRequestController(IServiceRequestRepository serviceRequestRepository, IUserProfileRepository userProfileRepository)
+        private readonly IPackageTypeRepository _packageTypeRepo;
+        private readonly IVehicleRepository _vehicleRepo;
+        public ServiceRequestController(IVehicleRepository vehicleRepository,IServiceRequestRepository serviceRequestRepository, IUserProfileRepository userProfileRepository, IPackageTypeRepository packageTypeRepository)
         {
             _serviceRequestRepo = serviceRequestRepository;
             _userProfileRepo = userProfileRepository;
+            _packageTypeRepo = packageTypeRepository;
+            _vehicleRepo = vehicleRepository;
 
         }
         // GET: ServiceRequestController
@@ -30,18 +35,24 @@ namespace RiseAndShine.Controllers
         public ActionResult Details(int id)
         {
             UserProfile userProfile = new UserProfile();
+            //userProfile = _userProfileRepo.GetUserProfileById(id);
+            var theVehicle = _vehicleRepo.GetVehicleByCarId(id);
+            
             List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
             availableServiceRequests = _serviceRequestRepo.GetAllAvailableServiceRequests();
-            userProfile = _userProfileRepo.GetUserProfileById(id);
-
             foreach (ServiceRequest serviceRequest in availableServiceRequests)
             {
                 serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
             }
 
+            List<PackageType> packageTypes = new List<PackageType>();
+            packageTypes = _packageTypeRepo.GetAll();
+
             ServiceRequestUserProfileViewModel vm = new ServiceRequestUserProfileViewModel()
             {
-                ServiceRequests = availableServiceRequests
+                ServiceRequests = availableServiceRequests,
+                PackageTypes = packageTypes,
+                Vehicle = theVehicle
             };
 
             return View(vm);
@@ -80,13 +91,14 @@ namespace RiseAndShine.Controllers
 
                 var newServiceRequest = new ServiceRequest()
                 {
-                    CarId = serviceRequest.CarId,
-                    DetailTypeId = serviceRequest.DetailTypeId,
-                    ServiceDate = serviceRequest.ServiceDate,
-                    ServiceProviderId = serviceRequest.ServiceProviderId,
-                    Note = serviceRequest.Note,
+                    Id = serviceRequest.Id,
+                    CarId = serviceRequest.Id,
+                    //DetailTypeId = serviceRequest.DetailTypeId,
+                    //ServiceDate = serviceRequest.ServiceDate,
+                    //ServiceProviderId = serviceRequest.ServiceProviderId,
+                    //Note = serviceRequest.Note,
                 };
-                _serviceRequestRepo.Add(newServiceRequest);
+                _serviceRequestRepo.Update(newServiceRequest);
                 return RedirectToAction("Details", "UserProfile");
             }
             catch (Exception ex)

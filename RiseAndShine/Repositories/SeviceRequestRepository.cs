@@ -54,7 +54,7 @@ namespace RiseAndShine.Models
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
                                 Note = DbUtils.GetString(reader, "Note"),
-                                Package = new PackageType()
+                                PackageType = new PackageType()
                                 {
                                     Name = DbUtils.GetString(reader, "PackageName"),
                                     Price = DbUtils.GetDecimal(reader, "PackagePrice"),
@@ -101,7 +101,7 @@ namespace RiseAndShine.Models
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
                                 Note = DbUtils.GetString(reader, "Note"),
-                                Package = new PackageType()
+                                PackageType = new PackageType()
                                 {
                                     Name = DbUtils.GetString(reader, "PackageName"),
                                     Price = DbUtils.GetDecimal(reader, "PackagePrice"),
@@ -149,7 +149,7 @@ namespace RiseAndShine.Models
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
                                 Note = DbUtils.GetString(reader, "Note"),
-                                Package = new PackageType()
+                                PackageType = new PackageType()
                                 {
                                     Name = DbUtils.GetString(reader, "PackageName"),
                                     Price = DbUtils.GetDecimal(reader, "PackagePrice"),
@@ -227,7 +227,7 @@ namespace RiseAndShine.Models
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
                     DbUtils.AddParameter(cmd, "@CarId", serviceRequest.CarId);
                     DbUtils.AddParameter(cmd, "@ServiceProviderId", serviceRequest.ServiceProviderId);
-                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.Package.Id);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
                     DbUtils.AddParameter(cmd, "@ServiceDate", serviceRequest.ServiceDate);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
 
@@ -254,9 +254,36 @@ namespace RiseAndShine.Models
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
-                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.Package.Id);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.PackageType.Id);
                     DbUtils.AddParameter(cmd, "@ServiceDate", serviceRequest.ServiceDate);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void Update(ServiceRequest serviceRequest)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE ServiceRequest
+                           
+                         SET    CarId = @CarId
+                                
+                         WHERE ServiceProviderId = @Id";
+
+                    
+                    DbUtils.AddParameter(cmd, "@CarId", serviceRequest.CarId);
+                    DbUtils.AddParameter(cmd, "@Id", serviceRequest.ServiceProviderId);
+                    //DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
+                    //DetailTypeId = @DetailTypeId
+
 
                     cmd.ExecuteNonQuery();
                 }

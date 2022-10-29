@@ -1,42 +1,74 @@
-﻿@model RiseAndShine.Models.Vehicle
+﻿@model IEnumerable<RiseAndShine.Models.Vehicle>
 
 @{
-    ViewData["Title"] = "Vehicle";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Add Vehicle</h1>
+<h1>Index</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Vehicle">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<p>
+    <a asp-action="Create" class="btn btn-outline-dark" type="button">Add Vehicle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+          
 
-            <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ManufactureDate" class="control-label"></label>
-                <input asp-for="ManufactureDate" class="form-control" />
-                <span asp-validation-for="ManufactureDate" class="text-danger"></span>
-            </div>
-            <div><br /></div>
-        <dt>
-                <a type="button" class="btn btn-primary" role="button" asp-area="" asp-controller="Vehicle" asp-action="Create" >Save</a>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             
-        </dt>
-        </form>
-</div>
-</div>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManufactureDate)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.OwnerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufactureDate)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.OwnerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

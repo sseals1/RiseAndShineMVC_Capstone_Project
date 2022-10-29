@@ -18,55 +18,50 @@ namespace RiseAndShine.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            List<UserProfile> userProiles = _userProfileRepo.GetAllUserProfiles();
+            List<UserProfile> userProfiles = _userProfileRepo.GetAllUserProfiles();
 
-            return View(userProiles);
+            return View(userProfiles);
         }
 
-        //GET: UserProfileController/Details/5
-        [HttpGet]
-        //public ActionResult Details(string firebaseUserId)
-        //{
-        //    UserProfile userProfile = _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
-        //    //var userTypes = _userTypeRepository.GetAllUserTypes();
-        //    //userProfile.UserTypes = userTypes;
-        //    return View(userProfile);
-        //}
+        //GET: UserProfileController/Details
         [Authorize]
         [HttpGet]
         public ActionResult Details()
         {
             var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
+            // Where CarId = NULL
             var availableSRList = _serviceRequestRepo.GetAllAvailableServiceRequests();
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
-         
-         
-            var vIds = vehicles.Select(v => v.Id).ToList();
 
-
+            // Instantiating the serviceRequests list
             List<ServiceRequest> serviceRequests = new List<ServiceRequest>();
+            // Getting the Id's off the vehicle list 
+            var vIds = vehicles.Select(v => v.Id).ToList();
+            // Itterating the vIds obj and passing each Id to the Method
             foreach (var Id in vIds)
             {
-                var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);               
+                var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);
+                // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
                 serviceRequests.AddRange(srByVehicle);
             }
 
-            var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId()
-                .FindAll(c => vehicles.Find(v => v.Id == c.Id)!=null);
+            // Invoking the FindAll method and passing the Find method to check that the vehicle has a carId. The found vehicle is passed to the method to get the service requests with a carId
+            var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId().FindAll(c => vehicles.Find(v => v.Id == c.Id) != null);
+            // Itterating over the serviceRequestsWithCardId list and the getting the vehicles with a service request
+            // CarId and adding those vehicles to the service request, Vehicle object
             foreach (ServiceRequest sr in serviceRequestsWithCarId)
             {
-                sr.Vehicle = _vehicleRepository.GetVehicleByCarId(sr.CarId);               
+                sr.Vehicle = _vehicleRepository.GetVehicleByCarId(sr.CarId);
             }
-         
+
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 UserProfile = userProfile,
                 Vehicles = vehicles,
                 ServiceRequests = serviceRequestsWithCarId,
                 AvailableServiceRequests = availableSRList
-                
+
             };
 
             return View(vm);
@@ -101,15 +96,15 @@ namespace RiseAndShine.Controllers
         {
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
             var ServiceRequest = new ServiceRequest();
-             List<PackageType> packageTypes = _packageTypeRepo.GetAll();
-             serviceRequest.Package = _packageTypeRepo.GetPackageTypeById(id);
+            List<PackageType> packageTypes = _packageTypeRepo.GetAll();
+            serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 ServiceRequest = serviceRequest,
                 //PackageType = packageType,
                 PackageTypes = packageTypes
-             
+
             };
             return View(vm);
         }
@@ -137,7 +132,7 @@ namespace RiseAndShine.Controllers
         public ActionResult Delete(int id)
         {
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
-            serviceRequest.Package = _packageTypeRepo.GetPackageTypeById(id);
+            serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
             UserProfileViewModel vm = new UserProfileViewModel()
             {
 
@@ -166,7 +161,7 @@ namespace RiseAndShine.Controllers
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IPackageTypeRepository _packageTypeRepo;
         private readonly IServiceRequestRepository _serviceRequestRepo;
-       
+
 
         // ASP.NET will give us an instance of our UserProfile  Repository. This is called "Dependency Injection"
         public UserProfileController(IUserProfileRepository userProfileRepository, IVehicleRepository vehicleRepository, IServiceRequestRepository serviceRequestRepository, IPackageTypeRepository packageTypeRepository)
