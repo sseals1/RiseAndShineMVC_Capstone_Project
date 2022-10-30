@@ -42,11 +42,17 @@ The application was developed first with a wireframe visual representation of th
 
 #### TO BEGIN FOLLOW THE GUIDELINES PROVIDED
 Clone down a template of the Project to your local machine.
+
 This project was developed in MS Visual Studio version 17.3.1, >NET Framework version 4.8.04084
+
 Make sure you have Visual Studio installed.
-Install NuGet PackageManager version 6.3.0.
+
+Install NuGet PackageManager version 6.3.0
+
 Install Razor (ASP.NET Core) version 17.0..0.2....
+
 Install Sql Server Data Tools version 17.0.62207.04100
+
 
 After installations are complete, open terminal and cd into the directory where you have cloned down the github project.
 ## run: start RiseAndShine.sln
