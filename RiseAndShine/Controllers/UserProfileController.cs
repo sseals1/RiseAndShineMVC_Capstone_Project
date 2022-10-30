@@ -41,7 +41,7 @@ namespace RiseAndShine.Controllers
             // Itterating the vIds obj and passing each Id to the Method
             foreach (var Id in vIds)
             {
-                var srByVehicle = _serviceRequestRepo.GetServiceRequestByVehicleId(Id);
+                var srByVehicle = _serviceRequestRepo.GetServiceRequestsByVehicleId(Id);
                 // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
                 serviceRequests.AddRange(srByVehicle);
             }

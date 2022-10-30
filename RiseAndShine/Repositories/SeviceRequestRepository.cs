@@ -117,7 +117,7 @@ namespace RiseAndShine.Models
             }
         }
 
-        public List<ServiceRequest> GetServiceRequestByVehicleId(int id)
+        public List<ServiceRequest> GetServiceRequestsByVehicleId(int id)
         {
             using (SqlConnection conn = Connection)
             {

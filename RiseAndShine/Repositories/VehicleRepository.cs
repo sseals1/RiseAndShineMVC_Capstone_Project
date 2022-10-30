@@ -78,7 +78,7 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT c.Id, c.Make, c.Model, c.Color, c.ManufactureDate, c.ImageUrl           
+                          SELECT c.Id, c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, c.ImageUrl           
                           FROM Car c
                     WHERE c.Id = @id                
                     ";
@@ -95,7 +95,8 @@ namespace RiseAndShine.Models
                             Model = DbUtils.GetString(reader, "Model"),
                             Color = DbUtils.GetString(reader, "Color"),
                             ManufactureDate = DbUtils.GetDateTime(reader, "ManufactureDate"),
-                            ImageUrl = DbUtils.GetString(reader, "ImageUrl")
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            OwnerId = DbUtils.GetInt(reader, "OwnerId")
                         };
                         return Vehicle;
                     }
