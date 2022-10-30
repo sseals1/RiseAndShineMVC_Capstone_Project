@@ -8,7 +8,8 @@ Technologies Used:
 
 
 
-![Untitled design(2)](https://user-images.githubusercontent.com/91228783/198887496-9d23c6f7-776f-4d8c-ab78-5fc8a0af8f0e.png)
+![asp net-framework-icon](https://user-images.githubusercontent.com/91228783/198887513-1dc8e46a-c239-423f-9536-63c9eacadfaf.png)
+
 
 
 ERD: [https://dbdiagram.io/d/6282fad97f945876b62dfc13](https://dbdiagram.io/d/6337327b7b3d2034fffad7f8)
