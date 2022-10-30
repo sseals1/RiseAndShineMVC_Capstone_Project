@@ -12,11 +12,17 @@ Technologies Used:
 
 
 
+
+
+
 Capstone Project Proposal: https://docs.google.com/document/d/1_Bs0sbQPYSFraMmi5kOSib-dVE0pbDLWwzOopvt16OY/edit?usp=sharing
 
 Wireframe: [https://sketchboard.me/zCULqeUotfzf](https://sketchboard.me/VCUzmPwhPKOm)
 
 ERD: [https://dbdiagram.io/d/6282fad97f945876b62dfc13](https://dbdiagram.io/d/6337327b7b3d2034fffad7f8)
+
+
+
 
 
 
@@ -27,6 +33,10 @@ The purpose of this app is to provide a simple platform from which vehicle owner
 Upon creating a user account, you can log in and see your account details. This view has an 'add vehicle' button option that redirects you to a form where you can add a vehicle to your account. When you click the add button, the user will be redirected to the Account Details view and the car will now be displayed in that view. By default a "Schedule Service" button is added to the newly created car and when clicked will redirect the user to the Service Requests view whcih will display a list of available service requests with time stamp and a dropdown list of the different types of car-washing packages available. Here you choose the desired car-wash package on the service request time-slot that you want and then click the "Schedule Service" button. Upon clicking the button the owner will be redirected back to the Account Details view which now display the vehicle and the service request for that vehicle. The Service Request can be edited and deleted by clicking the repective edit and delete buttons.
 
 The application was developed first with a wireframe visual representation of the the functionality of the app. When the vision for the app was complete an Entity Relationship Diagram was created to show the visual/logical reletaionship between data-points as well as give a guide for the development of the Sql server database.
+
+
+
+
 
 ### Getting Started with the App
 
