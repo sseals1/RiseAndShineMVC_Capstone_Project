@@ -1,6 +1,6 @@
 # RiseAndShineMVC_Capstone_Project
 
-Introduction
+## Introduction
 
 This is a MVP demonstration of my Server-Side Individual NSS Project
 
