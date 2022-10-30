@@ -23,11 +23,11 @@ namespace RiseAndShine.Controllers
             //List<Vehicle> vehicles = _vehicleRepo.GetVehicleByOwnerIdWithServiceRequests(ownerId);
             //var vIds = vehicles.Select(v => v.Id).ToList();
             // Itterating the vIds obj and passing each Id to the Method
-            
-                List<Vehicle> vehiclesByOwnerId = _vehicleRepo.GetVehiclesByOwnerId(ownerId);
-                // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
-                //vehicles.AddRange(vehiclesByOwnerId);
-           
+
+            List<Vehicle> vehiclesByOwnerId = _vehicleRepo.GetVehiclesByOwnerId(ownerId);
+            // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
+            //vehicles.AddRange(vehiclesByOwnerId);
+
             return View(vehiclesByOwnerId);
         }
 
@@ -52,7 +52,7 @@ namespace RiseAndShine.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Vehicle vehicle)
         {
-          
+
             try
             {
                 var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -100,31 +100,46 @@ namespace RiseAndShine.Controllers
         // GET: CarController1/Delete/5
         public ActionResult Delete(int id)
         {
+
+
             Vehicle vehicle = _vehicleRepo.GetVehicleByCarId(id);
-            return View();
+            List<ServiceRequest> serviceRequest = _serviceRequestRepo.GetServiceRequestsByVehicleId(id);
+            //serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
+            VehicleUserProfileViewModel vm = new VehicleUserProfileViewModel()
+            {
+
+                Vehicle = vehicle,
+                ServiceRequests = serviceRequest,
+            };
+            return View(vm);
+
         }
 
         // POST: CarController1/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Vehicle vehicle)
         {
             try
             {
+                _vehicleRepo.DeleteVehicle(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(vehicle);
             }
         }
         private readonly IVehicleRepository _vehicleRepo;
         private readonly IUserProfileRepository _userProfileRepo;
+        private readonly IServiceRequestRepository _serviceRequestRepo;
 
-        public VehicleController(IVehicleRepository vehicleRepository, IUserProfileRepository userProfileRepo)
+
+        public VehicleController(IServiceRequestRepository serviceRequestRepository, IVehicleRepository vehicleRepository, IUserProfileRepository userProfileRepo)
         {
             _userProfileRepo = userProfileRepo;
             _vehicleRepo = vehicleRepository;
+            _serviceRequestRepo = serviceRequestRepository;
         }
     }
 }

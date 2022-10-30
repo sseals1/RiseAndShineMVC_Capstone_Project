@@ -8,7 +8,7 @@ namespace RiseAndShine.Models
         SqlConnection Connection { get; }
 
         ServiceRequest GetServiceRequestById(int id);
-        List<ServiceRequest> GetServiceRequestByVehicleId(int vehicleId);
+        List<ServiceRequest> GetServiceRequestsByVehicleId(int vehicleId);
         void UpdateServiceRequest(ServiceRequest serviceRequest);
         void DeleteServiceRequest(int id);
         List<ServiceRequest> GetAllAvailableServiceRequests();

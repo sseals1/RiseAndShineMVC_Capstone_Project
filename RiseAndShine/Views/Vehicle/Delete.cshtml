@@ -1,4 +1,4 @@
-﻿@model RiseAndShine.Models.Vehicle
+﻿@model RiseAndShine.Models.ViewModels.VehicleUserProfileViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,52 +11,53 @@
     <h4>Vehicle</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+        <dt hidden class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.Id)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+        <dd hidden class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Make)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.Make)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Make)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.Make)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.Model)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.Model)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.Color)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.Color)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ManufactureDate)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.ManufactureDate)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ManufactureDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.ManufactureDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OwnerId)
+        <dt hidden class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.OwnerId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OwnerId)
+        <dd hidden class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.OwnerId)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Vehicle.ImageUrl)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Vehicle.ImageUrl)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
