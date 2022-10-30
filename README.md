@@ -55,7 +55,7 @@ Install Sql Server Data Tools version 17.0.62207.04100
 
 
 After installations are complete, open terminal and cd into the directory where you have cloned down the github project.
-## Run: start RiseAndShine.sln
+## ------- To run project: ~/start RiseAndShine.sln
 The project will open in Visual Studio.
 Select the debug button and make sure RiseAndShine is selected and not IIS.
 You can choose a default browser from which you would like to display the app by clicking the dropdown arrow next to the right of the debug button.
