@@ -12,12 +12,13 @@ Technologies Used:
 
 
 
+Capstone Project Proposal: https://docs.google.com/document/d/1_Bs0sbQPYSFraMmi5kOSib-dVE0pbDLWwzOopvt16OY/edit?usp=sharing
 
+Wireframe: [https://sketchboard.me/zCULqeUotfzf](https://sketchboard.me/VCUzmPwhPKOm)
 
 ERD: [https://dbdiagram.io/d/6282fad97f945876b62dfc13](https://dbdiagram.io/d/6337327b7b3d2034fffad7f8)
 
 
-Wireframe: [https://sketchboard.me/zCULqeUotfzf](https://sketchboard.me/VCUzmPwhPKOm)
 
 Purpose & motivation for project
 
