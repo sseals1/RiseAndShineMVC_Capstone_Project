@@ -6,7 +6,8 @@ This is a MVP demonstration of my Server-Side Individual NSS Project
 
 Technologies Used:
 
-![Untitled design](https://user-images.githubusercontent.com/91228783/198887111-062638c2-d000-4044-a3b7-7fcd7a0c6cc1.png)
+
+<img width="375" alt="Untitled design(1)" src="https://user-images.githubusercontent.com/91228783/198887340-3b08bcec-6dde-456b-b86d-6f693e8b69e3.png">
 
 ERD: [https://dbdiagram.io/d/6282fad97f945876b62dfc13](https://dbdiagram.io/d/6337327b7b3d2034fffad7f8)
 Wireframe: [https://sketchboard.me/zCULqeUotfzf](https://sketchboard.me/VCUzmPwhPKOm)
