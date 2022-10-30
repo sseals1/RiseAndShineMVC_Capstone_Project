@@ -3,11 +3,10 @@
 Introduction
 
 This is a MVP demonstration of my Server-Side Individual NSS Project
+
 Technologies Used:
 
-![asp net-framework-icon](https://user-images.githubusercontent.com/91228783/198883793-a18d9f59-8bd7-4df5-988a-42cb724dd869.png)
-
-
+![Untitled design](https://user-images.githubusercontent.com/91228783/198887111-062638c2-d000-4044-a3b7-7fcd7a0c6cc1.png)
 
 ERD: [https://dbdiagram.io/d/6282fad97f945876b62dfc13](https://dbdiagram.io/d/6337327b7b3d2034fffad7f8)
 Wireframe: [https://sketchboard.me/zCULqeUotfzf](https://sketchboard.me/VCUzmPwhPKOm)
