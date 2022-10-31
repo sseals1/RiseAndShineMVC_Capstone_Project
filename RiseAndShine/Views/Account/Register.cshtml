@@ -11,20 +11,27 @@
     <div class="col-md-4">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*@Model List<UserType>
-            @Html.LabelFor(m=>m.UserType)
-            @Html.DropDownListFor(m => m.UserType, Model.UserType)
-            @foreach (var types in Model.UserType)*@
 
-            <div class="form-group">
-                <label asp-for="UserType" class="control-label">User Type</label>
-                <select asp-for="UserType" style="color:dodgerblue" autofocus>                      
-                <option value="1">Owner</option>
-                <option value="2">Service Providor</option>
+            @*<div class="form-group">
+            <label asp-for="UserType" class="control-label">User Type</label>
+            <select asp-for="UserType" style="color:dodgerblue" autofocus>
+            <option value="1">Owner</option>
+            <option value="2">Service Providor</option>
             </select>
+            </div>*@
+
+            <div>
+                <select asp-for="UserType" style="color:dodgerblue" autofocus>
+                    <option class="control-label">select user type...</option>
+                    @foreach (var ut in Model.UserTypes)
+                    {
+                        <option value="@ut.Id">@ut.Name</option>
+                    }
+                </select>
             </div>
 
-             <div class="form-group">
+
+            <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -59,7 +66,7 @@
                 <input asp-for="ConfirmPassword" type="password" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>

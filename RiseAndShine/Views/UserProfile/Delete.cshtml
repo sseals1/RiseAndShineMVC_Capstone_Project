@@ -14,18 +14,18 @@
         <div class="form-group">
             <input asp-for="ServiceRequest.Id" type="hidden" />
         </div>
-        <dt class = "col-sm-2">
+        <dt  hidden class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ServiceRequest.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd hidden class = "col-sm-10">
             @Html.DisplayFor(model => model.ServiceRequest.Id)
         </dd>
         
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile)
+            @Html.DisplayNameFor(model => model.UserProfile.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile)
+            @Html.DisplayFor(model => model.UserProfile.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ServiceRequest.PackageType)
@@ -50,6 +50,6 @@
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Details">Back to List</a>
+        <a asp-action="Delete">Back to List</a>
     </form>
 </div>

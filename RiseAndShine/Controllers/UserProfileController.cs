@@ -145,11 +145,13 @@ namespace RiseAndShine.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
-            serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
+            ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestByCarId(id);
+            UserProfile userProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
+
+            //serviceRequest.DetailTypeId = _packageTypeRepo.GetPackageTypeById(id);
             UserProfileViewModel vm = new UserProfileViewModel()
             {
-
+                UserProfile = userProfile,
                 ServiceRequest = serviceRequest,
             };
             return View(vm);
@@ -163,7 +165,7 @@ namespace RiseAndShine.Controllers
             try
             {
                 _serviceRequestRepo.DeleteServiceRequest(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {

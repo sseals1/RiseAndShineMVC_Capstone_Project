@@ -34,7 +34,7 @@ namespace RiseAndShine.Controllers
         // GET: ServiceRequestController/Details/5
         public ActionResult Details(int id)
         {
-            //UserProfile userProfile = new UserProfile();
+            
             
             var theVehicle = _vehicleRepo.GetVehicleByCarId(id);
             
@@ -43,6 +43,8 @@ namespace RiseAndShine.Controllers
             foreach (ServiceRequest serviceRequest in availableServiceRequests)
             {
                 serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
+                serviceRequest.CarId = id;
+                serviceRequest.ServiceProviderId = serviceRequest.ServiceProviderId;
             }
 
             List<PackageType> packageTypes = new List<PackageType>();
@@ -76,27 +78,29 @@ namespace RiseAndShine.Controllers
         }
 
         // GET: ServiceRequestController/Edit/5
-        public ActionResult Edit(int carId)
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
+         
             return View();
         }
 
         // POST: ServiceRequestController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ServiceRequest serviceRequest)
+        public ActionResult Edit(int id,ServiceRequest serviceRequest)
         {
             try
             {
 
+                
                 var newServiceRequest = new ServiceRequest()
                 {
+                    ServiceProviderId = serviceRequest.ServiceProviderId,
                     Id = serviceRequest.Id,
-                    CarId = serviceRequest.Id,
-                    //DetailTypeId = serviceRequest.DetailTypeId,
-                    //ServiceDate = serviceRequest.ServiceDate,
-                    //ServiceProviderId = serviceRequest.ServiceProviderId,
-                    //Note = serviceRequest.Note,
+                    CarId = serviceRequest.CarId,
+                    DetailTypeId = serviceRequest.DetailTypeId,
+                    Note = serviceRequest.Note,
                 };
                 _serviceRequestRepo.Update(newServiceRequest);
                 return RedirectToAction("Details", "UserProfile");

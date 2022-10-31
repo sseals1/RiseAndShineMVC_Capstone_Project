@@ -14,5 +14,6 @@ namespace RiseAndShine.Models
         UserProfile GetUserProfileById(int id);
         List<UserProfile> GetAllOwners();
         List<UserProfile> GetUserProfileByServiceProviderId(int id);
+        
     }
 }
