@@ -8,7 +8,8 @@ using RiseAndShine.Auth.Models;
 using RiseAndShine.Models;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
-
+using RiseAndShine.Repositories;
+using Microsoft.SharePoint.Client;
 
 namespace RiseAndShine.Auth
 {
@@ -16,13 +17,15 @@ namespace RiseAndShine.Auth
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserTypeRepository _userTypeRepo;
 
-        
 
-        public AccountController(IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository)
+
+        public AccountController(IFirebaseAuthService firebaseAuthService, IUserProfileRepository userProfileRepository, IUserTypeRepository userTypeRepository)
         {
             _userProfileRepository = userProfileRepository;
             _firebaseAuthService = firebaseAuthService;
+            _userTypeRepo = userTypeRepository;
         }
 
         public IActionResult Login()
@@ -35,7 +38,7 @@ namespace RiseAndShine.Auth
         {
             if (!ModelState.IsValid)
             {
-            
+
                 return View(credentials);
             }
 
@@ -45,7 +48,7 @@ namespace RiseAndShine.Auth
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(credentials);
             }
-            
+
             var userProfile = _userProfileRepository.GetByFirebaseUserId(fbUser.FirebaseUserId);
             if (userProfile == null)
             {
@@ -60,8 +63,14 @@ namespace RiseAndShine.Auth
 
         public IActionResult Register()
         {
-            return View();
+            Registration vm = new Registration()
+            {
+                UserTypes = _userTypeRepo.GetAllUserTypes()
+
+            };
+            return View(vm);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Register(Registration registration)
@@ -79,19 +88,24 @@ namespace RiseAndShine.Auth
                 return View(registration);
             }
 
+
+
+
+
             var newUserProfile = new UserProfile
             {
                 Email = fbUser.Email,
                 FirebaseUserId = fbUser.FirebaseUserId,
                 Phone = registration.Phone,
-                Address = registration.Address, 
+                Address = registration.Address,
                 FirstName = registration.FirstName,
                 LastName = registration.LastName,
                 UserTypeId = registration.UserType,
+                //UserTypes = registration.UserTypes,
             };
 
             _userProfileRepository.Add(newUserProfile);
-           
+
 
             await LoginToApp(newUserProfile);
 
@@ -121,3 +135,4 @@ namespace RiseAndShine.Auth
         }
     }
 }
+

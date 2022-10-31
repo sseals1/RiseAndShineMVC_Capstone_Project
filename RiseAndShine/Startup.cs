@@ -37,6 +37,7 @@ namespace RiseAndShine
             services.AddTransient<IVehicleRepository, VehicleRepository>();
             services.AddTransient<IServiceRequestRepository, ServiceRequestRepository>();
             services.AddTransient<IPackageTypeRepository, PackageTypeRepository>();
+            services.AddTransient<IUserTypeRepository, UserTypeRepository>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

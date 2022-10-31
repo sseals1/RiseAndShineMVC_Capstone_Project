@@ -1,4 +1,5 @@
 ﻿using RiseAndShine.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,7 @@ namespace RiseAndShine.Auth.Models
 {
     public class Registration
     {
-        
+
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -27,6 +28,8 @@ namespace RiseAndShine.Auth.Models
         [Compare(nameof(Password))]
         [DisplayName("Confirm Password")]
         public string ConfirmPassword { get; set; }
+        public List<UserType> UserTypes { get; set; }
+
     }
 }
 

@@ -9,5 +9,6 @@ namespace RiseAndShine.Repositories
         SqlConnection Connection { get; }
 
         List<UserType> GetAllUserTypes();
+        UserType GetUserTypeById(int id);
     }
 }

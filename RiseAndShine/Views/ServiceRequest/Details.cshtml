@@ -11,14 +11,26 @@
     <div class="container-fluid">
         <dd>
             <dl class="row">
-  
-                    @foreach (ServiceRequest sr in Model.ServiceRequests)
-                    {
+
+                @foreach (ServiceRequest sr in Model.ServiceRequests)
+                {
+                    <form asp-action="Edit">
                         <div class="card m-4" style="width: 30rem height:20rem ;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <dd>
+                                       
+                                             
+                                                <input hidden asp-for="ServiceRequest.CarId" value="@Context.Request.RouteValues["id"]">
+                                                                                   
+                                                <input hidden asp-for="ServiceRequest.Id"/>
+
+
+                                            <input hidden asp-for="ServiceRequest.ServiceProviderId" value="@sr.ServiceProviderId" />
+                                                
+                                                
+                                           
                                             <div>
                                                 <label class="font-weight-bold">Service Provider:</label>
                                                 <span>@sr.UserProfile.Name</span>
@@ -28,13 +40,13 @@
                                                 <span>@sr.ServiceDate</span>
                                             </div>
 
-                                            <form>
+                                            <div>
                                                 <label class="font-weight-bold">Notes:</label>
-                                                <input type="text" name="@sr.Note"/>
-                                            </form>
+                                                <input type="text" asp-for="ServiceRequest.Note" />
+                                            </div>
 
                                             <div>
-                                                <select asp-for="@sr.DetailTypeId" class="form-control">
+                                                <select asp-for="ServiceRequest.DetailTypeId" class="form-control">
                                                     <option border="dark" value="PackageType.Id">select package type...</option>
                                                     @foreach (PackageType pt in Model.PackageTypes)
                                                     {
@@ -44,9 +56,7 @@
                                             </div>
 
 
-                                            <form asp-route-Id="@Model.Vehicle.Id" asp-controller="ServiceRequest" asp-action="Edit">
-                                                <input type="submit" method="post" value="SELECT SERVICE REQUEST" text-center class="btn btn-outline-dark" type="button" />
-                                            </form>
+                                            <input type="submit" method="post" value="SELECT SERVICE REQUEST" text-center class="btn btn-outline-dark" />
 
                                             <div>
                                             </div>
@@ -56,7 +66,8 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    </form>
+                }
 
             </dl>
         </dd>

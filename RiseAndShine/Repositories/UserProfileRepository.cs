@@ -179,6 +179,10 @@ namespace RiseAndShine.Models
             }
         }
 
+        
+
+
+
         public List<UserProfile> GetUserProfileByServiceProviderId(int id)
         {
             using (SqlConnection conn = Connection)

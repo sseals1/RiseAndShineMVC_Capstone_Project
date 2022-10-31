@@ -25,6 +25,8 @@ namespace RiseAndShine.Models
             }
         }
 
+        
+
         public List<ServiceRequest> GetAllAvailableServiceRequests()
         {
             using (SqlConnection conn = Connection)
@@ -194,7 +196,58 @@ namespace RiseAndShine.Models
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
                                 Note = DbUtils.GetString(reader, "Note"),
+                                
 
+                            };
+                            return serviceRequest;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        public ServiceRequest GetServiceRequestByCarId(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                         SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
+                             
+                                dt.Id AS PackageId, dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
+                         FROM ServiceRequest sr
+                         
+                         JOIN DetailType dt ON sr.DetailTypeId = dt.Id
+
+                                WHERE sr.CarId = @carId
+                                
+                    ";
+                    DbUtils.AddParameter(cmd, "@carId", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        if (reader.Read())
+                        {
+                            ServiceRequest serviceRequest = new ServiceRequest
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
+                                ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
+                                ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
+                                Note = DbUtils.GetString(reader, "Note"),
+                                PackageType = new PackageType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "PackageId"),
+                                    Name = DbUtils.GetString(reader, "PackageName"),
+                                    Price = DbUtils.GetDecimal(reader, "PackagePrice"),
+                                }
                             };
                             return serviceRequest;
                         }
@@ -274,15 +327,18 @@ namespace RiseAndShine.Models
                     cmd.CommandText = @"
                         UPDATE ServiceRequest
                            
-                         SET    CarId = @CarId
+                         SET    CarId = @CarId,
+                                Note = @Note,
+                                DetailTypeId = @DetailTypeId
                                 
-                         WHERE ServiceProviderId = @Id";
+                         WHERE CarId = @Id";
 
                     
                     DbUtils.AddParameter(cmd, "@CarId", serviceRequest.CarId);
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.ServiceProviderId);
-                    //DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
-                    //DetailTypeId = @DetailTypeId
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
+                    DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
+                   
 
 
                     cmd.ExecuteNonQuery();

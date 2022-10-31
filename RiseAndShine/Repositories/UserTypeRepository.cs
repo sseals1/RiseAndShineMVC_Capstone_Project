@@ -60,5 +60,42 @@ namespace RiseAndShine.Repositories
                 }
             }
         }
+
+        public UserType GetUserTypeById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                         SELECT  ut.Id, ut.Name                  
+                   FROM UserType ut
+                        WHERE ut.Id = @id
+                    ";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        if (reader.Read())
+                        {
+                            UserType userType = new UserType
+                            {
+
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+
+                            };
+
+                        return userType;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

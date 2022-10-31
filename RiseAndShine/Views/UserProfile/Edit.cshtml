@@ -11,8 +11,12 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*@Html.Hidden("carId", Context.Request.Query["Id"])*@
             <div class="form-group">
                 <input asp-for="ServiceRequest.Id" type="hidden"/>
+            </div>
+            <div class="form-group">
+                <input asp-for="ServiceRequest.CarId" type="hidden"/>
             </div>
             @*<div class="form-group">
             <label asp-for="PackageType.Name" class="control-label"></label>

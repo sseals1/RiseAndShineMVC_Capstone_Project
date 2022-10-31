@@ -110,7 +110,7 @@
                     <span>@car.Color</span>
                 </div>
                 <span>
-                    @*@Html.ActionLink("Details", "ServiceRequest", new { id=car.Id})*@
+                  
                     <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
                 </span>
             </div>
