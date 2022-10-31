@@ -12,10 +12,7 @@ namespace RiseAndShine.Models
         List<UserProfile> GetAllUserProfiles();
         UserProfile GetByFirebaseUserId(string FirebaseUserId);
         UserProfile GetUserProfileById(int id);
-        //List<Vehicle> GetVehicleByOwnerId(int ownerId);
         List<UserProfile> GetAllOwners();
-
-
-
+        List<UserProfile> GetUserProfileByServiceProviderId(int id);
     }
 }

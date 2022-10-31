@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System;
 
+
 namespace RiseAndShine.Controllers
 {
     public class UserProfileController : Controller
@@ -30,7 +31,6 @@ namespace RiseAndShine.Controllers
         {
             var ownerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             // Where CarId = NULL
-            var availableSRList = _serviceRequestRepo.GetAllAvailableServiceRequests();
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(ownerId);
             List<Vehicle> vehicles = _vehicleRepository.GetVehicleByOwnerIdWithServiceRequests(ownerId);
 
@@ -39,12 +39,23 @@ namespace RiseAndShine.Controllers
             // Getting the Id's off the vehicle list 
             var vIds = vehicles.Select(v => v.Id).ToList();
             // Itterating the vIds obj and passing each Id to the Method
+            List<ServiceRequest> srsByVehicleId = new List<ServiceRequest>();
             foreach (var Id in vIds)
             {
-                var srByVehicle = _serviceRequestRepo.GetServiceRequestsByVehicleId(Id);
+                srsByVehicleId = _serviceRequestRepo.GetServiceRequestsByVehicleId(Id);
                 // Adding the gotten service requests assocciated with a vehicle, to the serviceRequests lsit
-                serviceRequests.AddRange(srByVehicle);
+                serviceRequests.AddRange(srsByVehicleId);
             }
+
+
+            //List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
+            //where CarId is NULL 
+            //availableServiceRequests = _serviceRequestRepo.GetAllAvailableServiceRequests();
+            //foreach (ServiceRequest serviceRequest in availableServiceRequests)
+            //{
+            //    serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
+            //}
+
 
             // Invoking the FindAll method and passing the Find method to check that the vehicle has a carId. The found vehicle is passed to the method to get the service requests with a carId
             var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId().FindAll(c => vehicles.Find(v => v.Id == c.Id) != null);
@@ -53,14 +64,17 @@ namespace RiseAndShine.Controllers
             foreach (ServiceRequest sr in serviceRequestsWithCarId)
             {
                 sr.Vehicle = _vehicleRepository.GetVehicleByCarId(sr.CarId);
+                sr.UserProfile = _userProfileRepo.GetUserProfileById(sr.ServiceProviderId);
             }
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
+                //UserProfiles = userProfilesSPId,
                 UserProfile = userProfile,
                 Vehicles = vehicles,
                 ServiceRequests = serviceRequestsWithCarId,
-                AvailableServiceRequests = availableSRList
+                //AvailableServiceRequests = availableServiceRequests,          
+                
 
             };
 
