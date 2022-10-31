@@ -84,6 +84,7 @@
 <dl class="row">
     @foreach (Vehicle car in Model.Vehicles)
     {
+        
         <div class="card m-4" style="width: 12rem;">
             @*@if (String.IsNullOrEmpty(car.ImageUrl))*@
             <div>
@@ -92,10 +93,9 @@
                  class="card-img-top"
                  alt="RiseAndShine" />
             </div>
-            @* else
-        {
-        <img src="@car.ImageUrl" class="card-img-top" alt="RiseAndShine_Car" />
-        }*@
+         
+            <img src="@Url.Content(@car.ImageUrl)" class="card-img-top" alt="RiseAndShine_Car" />
+        
             <div class="card-body">
                 <div>
                     <label class="font-weight-bold">Make:</label>
@@ -142,8 +142,8 @@
                     
 
                     <div>
-                        <label class="font-weight-bold">Service Provider:</label>
-                        <span>@Model.UserProfile.Name</span>
+                        <label class="font-weight-bold">Service Provider:</label>                          
+                        <span>@sr.UserProfile.Name</span>
                     </div>
                     <div>
                         <label class="font-weight-bold">Service Date:</label>
@@ -161,7 +161,7 @@
                     </div>
                     <span>
                         @Html.ActionLink("Edit", "Edit", new { id=sr.Id}) |
-                        <a asp-action="Index">Back to List</a> |
+                        <a>Back to List</a> |
                         @Html.ActionLink("Delete", "Delete", new { id=sr.Id })
                     </span>
                     <div>

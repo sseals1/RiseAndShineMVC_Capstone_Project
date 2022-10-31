@@ -34,8 +34,8 @@ namespace RiseAndShine.Controllers
         // GET: ServiceRequestController/Details/5
         public ActionResult Details(int id)
         {
-            UserProfile userProfile = new UserProfile();
-            //userProfile = _userProfileRepo.GetUserProfileById(id);
+            //UserProfile userProfile = new UserProfile();
+            
             var theVehicle = _vehicleRepo.GetVehicleByCarId(id);
             
             List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
