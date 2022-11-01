@@ -47,40 +47,28 @@ namespace RiseAndShine.Controllers
                 serviceRequests.AddRange(srsByVehicleId);
             }
 
-
-            //List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
-            //where CarId is NULL 
-            //availableServiceRequests = _serviceRequestRepo.GetAllAvailableServiceRequests();
-            //foreach (ServiceRequest serviceRequest in availableServiceRequests)
-            //{
-            //    serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
-            //}
-
-
             // Invoking the FindAll method and passing the Find method to check that the vehicle has a carId. The found vehicle is passed to the method to get the service requests with a carId
-            var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId().FindAll(c => vehicles.Find(v => v.Id == c.Id) != null);
+            var serviceRequestsWithCarId = _serviceRequestRepo.GetAllServiceRequestsWithCarId().FindAll(sr => vehicles.Find(v => v.Id == sr.CarId) != null);
+                                                                                               
             // Itterating over the serviceRequestsWithCardId list and the getting the vehicles with a service request
             // CarId and adding those vehicles to the service request, Vehicle object
             foreach (ServiceRequest sr in serviceRequestsWithCarId)
             {
                 sr.Vehicle = _vehicleRepository.GetVehicleByCarId(sr.CarId);
                 sr.UserProfile = _userProfileRepo.GetUserProfileById(sr.ServiceProviderId);
+                //var ServiceRequests = _serviceRequestRepo.GetServiceRequestsByVehicleId(sr.Id);
             }
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {
-                //UserProfiles = userProfilesSPId,
+
                 UserProfile = userProfile,
                 Vehicles = vehicles,
                 ServiceRequests = serviceRequestsWithCarId,
-                //AvailableServiceRequests = availableServiceRequests,          
-                
-
+                //ServiceRequests = srsByVehicleId,
             };
 
             return View(vm);
-
-
 
         }
 
@@ -116,7 +104,6 @@ namespace RiseAndShine.Controllers
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 ServiceRequest = serviceRequest,
-                //PackageType = packageType,
                 PackageTypes = packageTypes
 
             };
@@ -148,7 +135,6 @@ namespace RiseAndShine.Controllers
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestByCarId(id);
             UserProfile userProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
 
-            //serviceRequest.DetailTypeId = _packageTypeRepo.GetPackageTypeById(id);
             UserProfileViewModel vm = new UserProfileViewModel()
             {
                 UserProfile = userProfile,

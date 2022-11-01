@@ -87,8 +87,9 @@ namespace RiseAndShine.Models
                          
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id                               
                                 WHERE sr.CarId IS NOT NULL
+                         
                     ";
-                    //cmd.Parameters.AddWithValue("@CarId", carId);
+                
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -225,10 +226,10 @@ namespace RiseAndShine.Models
                          
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id
 
-                                WHERE sr.CarId = @carId
+                                WHERE sr.Id = @Id
                                 
                     ";
-                    DbUtils.AddParameter(cmd, "@carId", id);
+                    DbUtils.AddParameter(cmd, "@Id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -238,6 +239,7 @@ namespace RiseAndShine.Models
                             ServiceRequest serviceRequest = new ServiceRequest
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
+                                CarId = DbUtils.GetInt(reader, "CarId"),
                                 DetailTypeId = DbUtils.GetInt(reader, "DetailTypeId"),
                                 ServiceDate = (DateTime)DbUtils.GetDateTime(reader, "ServiceDate"),
                                 ServiceProviderId = DbUtils.GetInt(reader, "ServiceProviderId"),
@@ -331,11 +333,12 @@ namespace RiseAndShine.Models
                                 Note = @Note,
                                 DetailTypeId = @DetailTypeId
                                 
-                         WHERE CarId = @Id";
+                         WHERE Id = @Id";
 
                     
+                    //DbUtils.AddParameter(cmd, "@Id", serviceRequest.ServiceProviderId);
+                    DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
                     DbUtils.AddParameter(cmd, "@CarId", serviceRequest.CarId);
-                    DbUtils.AddParameter(cmd, "@Id", serviceRequest.ServiceProviderId);
                     DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
                    

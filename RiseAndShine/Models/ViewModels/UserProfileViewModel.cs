@@ -2,7 +2,7 @@
 using RiseAndShine.Models;
 using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace RiseAndShine.Models.ViewModels
 {
@@ -17,7 +17,7 @@ namespace RiseAndShine.Models.ViewModels
         public List<ServiceRequest> AvailableServiceRequests { get; set; }
         public ServiceRequest ServiceRequest { get; set; }
         public List<UserProfile> UserProfiles { get; set; }
-        public UserProfile ServiceProvider { get; set; }    
+        public UserProfile ServiceProvider { get; set; }        
 
     }
 }

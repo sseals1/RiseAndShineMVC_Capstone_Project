@@ -24,7 +24,7 @@
                                              
                                                 <input hidden asp-for="ServiceRequest.CarId" value="@Context.Request.RouteValues["id"]">
                                                                                    
-                                                <input hidden asp-for="ServiceRequest.Id"/>
+                                                <input hidden asp-for="ServiceRequest.Id" value="@sr.Id"/>
 
 
                                             <input hidden asp-for="ServiceRequest.ServiceProviderId" value="@sr.ServiceProviderId" />
@@ -75,5 +75,5 @@
         </div>
         <div>
 
-            <a asp-action="Details">Back to List</a>
+            <a asp-controller="UserProfile" asp-action="Details">Back to List</a>
         </div>
