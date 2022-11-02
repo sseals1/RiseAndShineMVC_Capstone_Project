@@ -20,7 +20,7 @@ namespace RiseAndShine.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        [Display(Name = "")]
+        [Display(Name = "Vehicle Owner")]
         public UserType UserType { get; set; }
         public List<UserType> UserTypes { get; set; }
         public int UserTypeId { get; set; }

@@ -309,7 +309,7 @@ namespace RiseAndShine.Models
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", serviceRequest.Id);
-                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.PackageType.Id);
+                    DbUtils.AddParameter(cmd, "@DetailTypeId", serviceRequest.DetailTypeId);
                     DbUtils.AddParameter(cmd, "@ServiceDate", serviceRequest.ServiceDate);
                     DbUtils.AddParameter(cmd, "@Note", serviceRequest.Note);
 

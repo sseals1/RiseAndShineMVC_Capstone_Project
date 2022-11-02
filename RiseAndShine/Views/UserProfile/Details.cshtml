@@ -17,170 +17,157 @@
 
 
 
+<div class="container mt-2 ">
 
-<div class="row">
-    <div class="card-body">
-        @*<dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.FirebaseUserId)
-        </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.FirebaseUserId)
-        </dd>*@
-        @*  <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.UserProfile.Id)
-        </dt>
-        <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.UserProfile.Id)
-        </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.UserType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.UserType.Name)
-        </dd>
-        @*<dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-        </dd>*@
-        @*<dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.UserProfile.ImageURL)
-        </dt>*@
-        <dd class="col-sm-10">
-            <div>
-                <img src="/Images/Avatar-Image.svg"
-                     style="height : 40px; width :40px"
-                     class="card-img-top"
-                     alt="RiseAndShine_Avatar" />
-            </div>
-            @*@Html.DisplayFor(model => model.UserProfile.ImageURL)*@
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Phone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Phone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserProfile.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserProfile.Address)
-        </dd>
-        <dt>
-    </div>
-</div>
-
-
-
-
-<dl class="row">
-    @foreach (Vehicle car in Model.Vehicles)
-    {
-        
-        <div class="card m-4" style="width: 12rem;">
-            @*@if (String.IsNullOrEmpty(car.ImageUrl))*@
-            <div>
-                <img src="/Images/vehicle.png"
-                 style="height : 30px; width : 30px"
-                 class="card-img-top"
-                 alt="RiseAndShine" />
-            </div>
-         
-            <img src="@Url.Content(@car.ImageUrl)" class="card-img-top" alt="RiseAndShine_Car" />
-        
+    <div class="d-flex p-2">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
             <div class="card-body">
-                <div>
-                    <label class="font-weight-bold">Make:</label>
-                    <span>@car.Make</span>
-                </div>
-                <div>
-                    <label class="font-weight-bold">Model:</label>
-                    <span>@car.Model</span>
-                </div>
-                <div>
-                    <label class="font-weight-bold">Color:</label>
-                    <span>@car.Color</span>
-                </div>
-                <span>
-                  
-                    <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
-                </span>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserProfile.UserType)
+                </dt>
+                <dd hidden>
+                    @Html.DisplayFor(model => model.UserProfile.UserType.Name)
+                </dd>
+
+                <dd>
+                    <div>
+                        <img src="/Images/Vehicle_Owner.png"
+                             style="height : 60px; width :60px"
+                             class="card-img-top"
+                             alt="RiseAndShine_Avatar" />
+                    </div>
+
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserProfile.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserProfile.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserProfile.Phone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserProfile.Phone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserProfile.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserProfile.Address)
+                </dd>
+                <dt>
             </div>
         </div>
-    }
-
-</dl>
 
 
+        <div>
+            <dl class="row">
+                @foreach (Vehicle car in Model.Vehicles)
+                {
 
-<dd>
-    <dl class="row">
-        @foreach (ServiceRequest sr in Model.ServiceRequests)
-        {
-            <div class="card m-4" style="width: 14rem;">
-                <dt>
-                    <img src="/Images/service-yellow.png"
-                     style="height : 30px; width :30px"
-                     class="card-img-top"
-                     alt="RiseAndShine" />
-                </dt>
-                <dd class="card-body">
-                    <h4>Service Request</h4>
-                    
+                    <div class="card m-4 bg-light" style="width: 12rem;">
+                        @*@if (String.IsNullOrEmpty(car.ImageUrl))*@
+                        <dt>
+                            <div>
+                                <img src="/Images/vehicle.png"
+                                 style="height : 30px; width : 30px"
+                                 class="card-img-top"
+                                 alt="RiseAndShine" />
+                            </div>
+                        </dt>
+
+                        <img src="@Url.Content(@car.ImageUrl)" class="card-img-top" alt="RiseAndShine_Car" />
+
+                        <div class="card-body">
+                            <div>
+                                <label class="font-weight-bold">Make:</label>
+                                <span>@car.Make</span>
+                            </div>
+                            <div>
+                                <label class="font-weight-bold">Model:</label>
+                                <span>@car.Model</span>
+                            </div>
+                            <div>
+                                <label class="font-weight-bold">Color:</label>
+                                <span>@car.Color</span>
+                            </div>
+                            <span>
+
+                                <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark bg-light" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
+                            </span>
+                        </div>
+                    </div>
+                }
+
+            </dl>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <dd>
+        <dl class="row">
+            @foreach (ServiceRequest sr in Model.ServiceRequests)
+            {
+                <div class="card m-4" style="width: 16rem;">
+                    <dt>
+                        <img src="/Images/service-yellow.png"
+                         style="height : 30px; width :30px"
+                         class="card-img-top"
+                         alt="RiseAndShine" />
+                    </dt>
+                    <dd class="card-body">
+                        <h4>Service Request</h4>
+
                         <div>
                             <label class="font-weight-bold"></label>
                             <span>@sr.Vehicle.Make</span>
                         </div>
-                    
-
-                    <div>
-                        <label class="font-weight-bold">Service Provider:</label>                          
-                        <span>@sr.UserProfile.Name</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Service Date:</label>
-                        <span>@sr.ServiceDate</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Notes:</label>
-                        <span>@sr.Note</span>
-                    </div>
-                    <div>
-                        <label class="font-weight-bold">Package Type:</label>
-                        <span>@sr.PackageType.Name</span>
-                        <label class="font-weight-bold">Price:</label>
-                        <span>@($"${sr.PackageType.Price}")</span>
-                    </div>
-                    <span>
-                        @Html.ActionLink("Edit", "Edit", new { id=sr.Id}) |
-                        <a>Back to List</a> |
-                        @Html.ActionLink("Delete", "Delete", new { id=sr.Id })
-                    </span>
-                    <div>
-                    </div>
-
-                </dd>
-            </div>
-        }
-    </dl>
-</dd>
 
 
+                        <div>
+                            <label class="font-weight-bold">Service Provider:</label>
+                            <span>@sr.UserProfile.Name</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Service Date:</label>
+                            <span>@sr.ServiceDate</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Notes:</label>
+                            <span>@sr.Note</span>
+                        </div>
+                        <div>
+                            <label class="font-weight-bold">Package Type:</label>
+                            <span>@sr.PackageType.Name</span>
+                            <label class="font-weight-bold">Price:</label>
+                            <span>@($"${sr.PackageType.Price}")</span>
+                        </div>
+                        <span>
+                            @Html.ActionLink("Edit", "Edit", new { id=sr.Id}) |
+                            @*<a>Back to List</a> |*@
+                            @Html.ActionLink("Delete", "Delete", new { id=sr.Id })
+                        </span>
+                        <div>
+                        </div>
 
-@*<dt>
-                <img src="/Images/service-yellow.png"
-                style="height : 30px; width :30px"
-                class="card-img-top"
-                alt="RiseAndShine" />
-                </dt>*@
+                    </dd>
+                </div>
+            }
+        </dl>
+    </dd>
+</div>
+
+
+
 
 
 
