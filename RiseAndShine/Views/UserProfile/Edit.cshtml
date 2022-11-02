@@ -30,9 +30,8 @@
             </div>*@
 
 
-            <select asp-for="ServiceRequest.PackageType.Id" class="form-control">
-                <label asp-for="ServiceRequest.PackageType.Id" class="control-label"></label>
-                <option value="ServiceRequest.PackageType.Id">select package type...</option>               
+            <select asp-for="ServiceRequest.DetailTypeId"  class="form-control">
+                <label asp-for="ServiceRequest.DetailTypeId" class="control-label"></label>                             
                 @foreach (PackageType pt in Model.PackageTypes)
                 {
                     <option value="@pt.Id">@($"{pt.Name} ${pt.Price}")</option>
