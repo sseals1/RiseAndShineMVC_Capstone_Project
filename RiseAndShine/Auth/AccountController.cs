@@ -88,10 +88,6 @@ namespace RiseAndShine.Auth
                 return View(registration);
             }
 
-
-
-
-
             var newUserProfile = new UserProfile
             {
                 Email = fbUser.Email,
@@ -101,7 +97,7 @@ namespace RiseAndShine.Auth
                 FirstName = registration.FirstName,
                 LastName = registration.LastName,
                 UserTypeId = registration.UserType,
-                //UserTypes = registration.UserTypes,
+                UserTypes = registration.UserTypes,
             };
 
             _userProfileRepository.Add(newUserProfile);
