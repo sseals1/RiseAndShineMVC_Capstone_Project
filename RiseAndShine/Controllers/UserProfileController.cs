@@ -97,9 +97,9 @@ namespace RiseAndShine.Controllers
         public ActionResult Edit(int id)
         {
             ServiceRequest serviceRequest = _serviceRequestRepo.GetServiceRequestById(id);
-            var ServiceRequest = new ServiceRequest();
+           
             List<PackageType> packageTypes = _packageTypeRepo.GetAll();
-            serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
+            //serviceRequest.PackageType = _packageTypeRepo.GetPackageTypeById(id);
 
             UserProfileViewModel vm = new UserProfileViewModel()
             {

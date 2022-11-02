@@ -122,11 +122,13 @@ namespace RiseAndShine.Controllers
         {
             try
             {
+                _serviceRequestRepo.DeleteServiceRequest(id);
                 _vehicleRepo.DeleteVehicle(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+
                 return View(vehicle);
             }
         }
