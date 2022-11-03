@@ -1,5 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+<style type="text/css">
+    body {
+        background-image: url('https://the-car-wash.com/wp-content/uploads/2017/09/intext-cleaning.jpg');
+        margin: 0;
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+</style>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +23,13 @@
 
             <div class="container">
                 <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                    <img src="/Images/Car Wash and Detailing Service Logo(5).png" title="title" alt="additional title" style="height:100px; width:100px;" />
+                    <h2 class="font-weight-bold">RISE & SHINE</h2>
+                    <h5 text-align: center; >Detailing Service</h5>
+
+                    @*<video width="320" height="240">
+                        <source src="/Images/Rise & Shine.mp4" type="video/mp4" />
+                    </video>*@
+                    @*<img src="/Images/" title="title" alt="additional title" style="height:100px; width:100px;" />*@
                 </a>
 
                 <a class="navbar-brand text-dark" bg-primary asp-area="" asp-controller="Home" asp-action="Index"></a>
@@ -27,34 +41,34 @@
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                                </li>
                         }
                         else
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Admin</a>
+                                                </li>
                         }
                     </ul>
-                       
-                   
 
-                      
-                    
+
+
+
+
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>*@
                         <li class="nav-item"><link href="c:\Users\sseal\Downloads\bootstrap.css" rel="stylesheet" />
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Administration</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Details">Account Details</a>
