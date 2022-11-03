@@ -118,7 +118,7 @@ namespace RiseAndShine.Models
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                      SELECT c.Id AS VehicleId, c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, ImageUrl,
+                      SELECT c.Id AS VehicleId, c.OwnerId, c.Make, c.Model, c.Color, c.ManufactureDate, c.ImageUrl,
                         sr.Id AS ServiceRequestId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
                         dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
 

@@ -39,9 +39,14 @@ namespace RiseAndShine.Controllers
             var theVehicle = _vehicleRepo.GetVehicleByCarId(id);
             
             List<ServiceRequest> availableServiceRequests = new List<ServiceRequest>();
+            // getting all service requests where CarId =NULL 
             availableServiceRequests = _serviceRequestRepo.GetAllAvailableServiceRequests();
+            // itteration over the availableServiceRequests List and for each object in the list,
+            // passing the object.ServiceProviderId in as an argument to the get mehthod that returns a single
+            // UserProfile. 
             foreach (ServiceRequest serviceRequest in availableServiceRequests)
             {
+                // Assigning the ServiceProviderI value to the UserProfile object property on the serviceRequest.
                 serviceRequest.UserProfile = _userProfileRepo.GetUserProfileById(serviceRequest.ServiceProviderId);
                 serviceRequest.CarId = id;
                 serviceRequest.ServiceProviderId = serviceRequest.ServiceProviderId;
