@@ -20,7 +20,7 @@
 <div class="container mt-2 ">
 
     <div class="d-flex p-2">
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card m-4 text-white bg-dark mb-3" style="width: 16rem; height: 20rem;">
             <div class="card-body">
                 <dt>
                     @Html.DisplayNameFor(model => model.UserProfile.UserType)
@@ -66,38 +66,45 @@
                 @foreach (Vehicle car in Model.Vehicles)
                 {
 
-                    <div class="card m-4 bg-light" style="width: 12rem;">
-                        @*@if (String.IsNullOrEmpty(car.ImageUrl))*@
-                        <dt>
-                            <div>
-                                <img src="/Images/vehicle.png"
-                                 style="height : 30px; width : 30px"
-                                 class="card-img-top"
-                                 alt="RiseAndShine" />
-                            </div>
-                        </dt>
+                    <div class="card m-4" style="width: 16rem; height: 20rem;">
+                            @if (String.IsNullOrEmpty(car.ImageUrl))
+                            {
+                                <dt>
+                                    <div>
+                                        <img src="/Images/vehicle.png"
+                                     style="height : 30px; width : 30px"
+                                     class="card-img-top"
+                                     alt="RiseAndShine" />
+                                    </div>
+                                </dt>
 
-                        <img src="@Url.Content(@car.ImageUrl)" class="card-img-top" alt="RiseAndShine_Car" />
+                            }
+                            else
+                            {
 
-                        <div class="card-body">
-                            <div>
-                                <label class="font-weight-bold">Make:</label>
-                                <span>@car.Make</span>
-                            </div>
-                            <div>
-                                <label class="font-weight-bold">Model:</label>
-                                <span>@car.Model</span>
-                            </div>
-                            <div>
-                                <label class="font-weight-bold">Color:</label>
-                                <span>@car.Color</span>
-                            </div>
-                            <span>
+                                <img src="@Url.Content(@car.ImageUrl)" class="card-img-top" alt="RiseAndShine_Car" />
+                            }
 
-                                <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark bg-light" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
-                            </span>
+                            <div class="card-body">
+                                <div>
+                                    <label class="font-weight-bold">Make:</label>
+                                    <span>@car.Make</span>
+                                </div>
+                                <div>
+                                    <label class="font-weight-bold">Model:</label>
+                                    <span>@car.Model</span>
+                                </div>
+                                <div>
+                                    <label class="font-weight-bold">Color:</label>
+                                    <span>@car.Color</span>
+                                </div>
+                                <span>
+
+                                    <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    
                 }
 
             </dl>
@@ -117,7 +124,7 @@
         <dl class="row">
             @foreach (ServiceRequest sr in Model.ServiceRequests)
             {
-                <div class="card m-4" style="width: 16rem;">
+                <div class="card m-4" style="width: 16rem; height: 26rem;">
                     <dt>
                         <img src="/Images/service-yellow.png"
                          style="height : 30px; width :30px"
