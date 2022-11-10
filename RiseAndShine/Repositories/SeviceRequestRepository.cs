@@ -82,9 +82,11 @@ namespace RiseAndShine.Models
                     cmd.CommandText = @"
                       SELECT sr.Id, sr.CarId, sr.DetailTypeId, sr.ServiceDate, sr.ServiceProviderId, sr.Note,
                              
-                                dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice
+                                dt.DetailPackageName AS PackageName, dt.PackagePrice AS PackagePrice,
+                                c.Model, c.Make
                          FROM ServiceRequest sr
                          
+                         LEFT JOIN Car c ON sr.CarId = c.Id
                          JOIN DetailType dt ON sr.DetailTypeId = dt.Id                               
                                 WHERE sr.CarId IS NOT NULL
                          

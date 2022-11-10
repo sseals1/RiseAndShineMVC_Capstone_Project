@@ -62,7 +62,9 @@
                     @Html.DisplayFor(modelItem => item.OwnerId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                    @*<img @Html.DisplayFor(modelItem => item.ImageUrl) alt="Car"/>*@
+                    @*<img src="@Url.Content(modelItem => item.ImageUrl)" alt="Image" />*@
+                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" style="height:100px;width:150px;" />
                 </td>
                 <td>
                     @Html.ActionLink("", "", new { /* id=item.PrimaryKey */ }) 
