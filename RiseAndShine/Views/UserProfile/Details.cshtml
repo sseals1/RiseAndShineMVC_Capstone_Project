@@ -97,6 +97,10 @@
                                 <label class="font-weight-bold">Color:</label>
                                 <span>@car.Color</span>
                             </div>
+                            @*<div>
+                                <label class="font-weight-bold">Service Request:</label>
+                                <span>@Model.ServiceRequest</span>
+                            </div>*@
                             <span>
 
                                 <a asp-route-id="@car.Id" type="button" text-right class="btn btn-outline-dark" asp-controller="ServiceRequest" asp-action="Details">SCHEDULE SERVICE</a>
